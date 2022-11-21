@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Pomodoro from '../components/Pomodoro'
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       </Head>
 
       <main>
+        <Pomodoro />
       </main>
 
       <footer>
