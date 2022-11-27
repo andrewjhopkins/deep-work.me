@@ -27,9 +27,7 @@ const TaskTimer = memo((props: TaskTimerProps) => {
 
     const timerString = formatSecondsIntoMinutesAndSeconds(seconds);
     return (
-        <>
-            <div className="timer-label">{timerString}</div>
-        </>
+        <div className="text-7xl timer-label">{timerString}</div>
     )
 });
 
