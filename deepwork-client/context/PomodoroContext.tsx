@@ -4,18 +4,24 @@ import reducer from "../reducers/reducer";
 interface IState {
     timerRunning: boolean,
     timeLeft: number,
-    timerMode: string
+    timerMode: string,
+
+    toastMessage: string,
+    toastShow: boolean,
 }
 
 const initialState: IState = {
     timerRunning: false,
     timeLeft: 1500,
-    timerMode: "pomodoro"
+    timerMode: "pomodoro",
+
+    toastMessage: "",
+    toastShow: false,
 };
 
 interface IContextProps {
   state: IState;
-  dispatch: ({type}:{ type: string, timerRunning: boolean, timeLeft: number, timerMode: string, }) => void;
+  dispatch: ({type}:{ type: string, timerRunning: boolean, timeLeft: number, timerMode: string, toastMessage: string}) => void;
 }
 
 export const PomodoroContext = createContext({} as IContextProps);

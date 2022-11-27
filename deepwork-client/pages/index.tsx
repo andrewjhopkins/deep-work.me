@@ -1,8 +1,14 @@
+import {useContext} from "react";
+import { PomodoroContext } from "../context/PomodoroContext";
 import Head from 'next/head'
-import PomodoroWidget from '../components/PomodoroWidget'
+import PomodoroWidget from '../components/Pomodoro/PomodoroWidget'
 import Draggable from "react-draggable";
+import Toast from '../components/Toast/Toast';
 
 export default function Home() {
+  const { state, dispatch } = useContext(PomodoroContext);
+  const { toastMessage } = state;
+
   return (
     <div>
       <Head>
@@ -20,6 +26,7 @@ export default function Home() {
             <PomodoroWidget />
           </div>
         </Draggable>
+        <Toast message={toastMessage} />
       </main>
       <footer>
       </footer>

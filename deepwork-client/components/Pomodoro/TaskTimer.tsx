@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect, useCallback, memo } from "react";
-import { formatSecondsIntoMinutesAndSeconds } from "../utils/date";
-import useTimer from "../utils/useTimer";
-import { PomodoroContext } from "../context/PomodoroContext";
+import { formatSecondsIntoMinutesAndSeconds } from "../../utils/date";
+import useTimer from "../../utils/useTimer";
+import { PomodoroContext } from "../../context/PomodoroContext";
 
 interface TaskTimerProps {
     timerRunning: boolean
@@ -16,15 +16,15 @@ const TaskTimer = memo((props: TaskTimerProps) => {
 
     const startButtonClickHandler = () => {
         if (timerRunning) {
-            dispatch({ type: "stop_timer", timeLeft: seconds, timerMode: timerMode });
+            dispatch({ type: "stop_timer", timerRunning: timerRunning, timeLeft: seconds, timerMode: timerMode, toastMessage: "Timer Stopped" });
         }
         else {
-            dispatch({ type: "start_timer", timeLeft: seconds, timerMode: timerMode });
+            dispatch({ type: "start_timer", timerRunning: timerRunning, timeLeft: seconds, timerMode: timerMode, toastMessage: "Timer Started" });
         }
     }
 
     const resetButtonClickHandler = () => {
-        dispatch({ type: "stop_timer", timeLeft: -1, timerMode: timerMode })
+        dispatch({ type: "stop_timer", timerRunning: timerRunning, timeLeft: -1, timerMode: timerMode, toastMessage: "Reset Timer" })
     }
     
     const callback = useCallback(() => {
