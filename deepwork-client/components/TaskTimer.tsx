@@ -13,13 +13,17 @@ const TaskTimer = memo((props: TaskTimerProps) => {
     const { timerRunning, timeLeft } = props;
     const [stateTimerStarted, setStateTimerStarted] = useState(timerRunning);
 
-    const onClickHandler = () => {
+    const startButtonClickHandler = () => {
         if (timerRunning) {
             dispatch({type: "stop_timer", timeLeft: seconds});
         }
         else {
             dispatch({type: "start_timer", timeLeft: seconds});
         }
+    }
+
+    const resetButtonClickHandler = () => {
+        dispatch({type: "stop_timer", timeLeft: 1500})
     }
     
     const callback = useCallback(() => {
@@ -38,21 +42,21 @@ const TaskTimer = memo((props: TaskTimerProps) => {
 
     const timerString = formatSecondsIntoMinutesAndSeconds(seconds);
     return (
-        <div className="grid grid-rows-4">
-            <div className="text-7xl timer-label row-span-3">
+        <div className="h-full grid grid-row-6">
+            <div className="text-8xl timer-label row-span-5">
                 {timerString}
             </div>
 
             <div className="grid grid-cols-2 row-span-1">
                 <div className="col-span-1">
-                    <div className="text-center w-7/12 m-auto bg-blue-500 hover:bg-blue-600 text-white font-bold rounded py-1"
-                        onClick={onClickHandler}
-                    >
+                    <div className="my-2 text-center w-7/12 m-auto bg-blue-500 hover:bg-blue-600 text-white font-bold rounded py-1"
+                        onClick={startButtonClickHandler}>
                         <h1>{timerRunning ? "Stop" : "Start"}</h1>
                     </div>
                 </div>
                 <div className="col-span-1">
-                    <div className="text-center w-7/12 m-auto bg-red-500 hover:bg-red-600 text-white font-bold rounded py-1">
+                    <div className="my-2 text-center w-7/12 m-auto bg-red-500 hover:bg-red-600 text-white font-bold rounded py-1"
+                        onClick={resetButtonClickHandler}>
                         <h1>Reset</h1>
                     </div>
                 </div>
