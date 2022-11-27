@@ -4,7 +4,7 @@ import { PomodoroContext } from "../context/PomodoroContext";
 import TaskTimer from "./TaskTimer";
 
 const PomodoroWidget = memo((props) => {
-    const { state } = useContext(PomodoroContext);
+    const { state, dispatch } = useContext(PomodoroContext);
     const { timerRunning, timeLeft, timerMode } = state;
 
     interface mode {
@@ -14,15 +14,15 @@ const PomodoroWidget = memo((props) => {
 
     const modes: mode[] = [{id: "pomodoro", displayName: "Pomodoro"}, {id: "short-break", displayName: "Short Break"}, {id: "long-break", displayName: "Long Break"}];
 
-    const handleModeChange = () => {
-        console.log("click");
+    const handleModeChange = (id) => {
+        dispatch({ type: "change_timer_mode", timerRunning: timerRunning, timeLeft: timeLeft, timerMode: id });
     }
 
     const modeButtons = modes.map((mode: mode) => {
         return (
             <div className="col-span-1 text-center">
-                <div id={mode.id} className={`mx-auto my-3 w-10/12 h-5/8 text-center hover:bg-gray-100 text-black font-bold rounded py-1 ${mode.id == "short-break" ? "bg-gray-300" : ""}`}
-                    onClick={handleModeChange}
+                <div id={mode.id} className={`mx-auto my-3 w-10/12 h-5/8 text-center hover:bg-gray-100 text-black font-bold rounded py-1 ${mode.id == timerMode ? "bg-gray-300" : ""}`}
+                    onClick={() => handleModeChange(mode.id)}
                 >
                     <h1>{mode.displayName}</h1>
                 </div>

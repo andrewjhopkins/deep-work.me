@@ -10,12 +10,12 @@ interface IState {
 const initialState: IState = {
     timerRunning: false,
     timeLeft: 1500,
-    timerMode: "Work"
+    timerMode: "pomodoro"
 };
 
 interface IContextProps {
   state: IState;
-  dispatch: ({type}:{ type: string, timeLeft: number, timerMode: string, }) => void;
+  dispatch: ({type}:{ type: string, timerRunning: boolean, timeLeft: number, timerMode: string, }) => void;
 }
 
 export const PomodoroContext = createContext({} as IContextProps);
