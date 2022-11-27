@@ -6,24 +6,25 @@ import { PomodoroContext } from "../context/PomodoroContext";
 interface TaskTimerProps {
     timerRunning: boolean
     timeLeft: number, 
+    timerMode: string,
 }
 
 const TaskTimer = memo((props: TaskTimerProps) => {
     const { state, dispatch } = useContext(PomodoroContext);
-    const { timerRunning, timeLeft } = props;
+    const { timerRunning, timeLeft, timerMode } = props;
     const [stateTimerStarted, setStateTimerStarted] = useState(timerRunning);
 
     const startButtonClickHandler = () => {
         if (timerRunning) {
-            dispatch({type: "stop_timer", timeLeft: seconds});
+            dispatch({ type: "stop_timer", timeLeft: seconds, timerMode: timerMode });
         }
         else {
-            dispatch({type: "start_timer", timeLeft: seconds});
+            dispatch({ type: "start_timer", timeLeft: seconds, timerMode: timerMode });
         }
     }
 
     const resetButtonClickHandler = () => {
-        dispatch({type: "stop_timer", timeLeft: -1})
+        dispatch({ type: "stop_timer", timeLeft: -1, timerMode: timerMode })
     }
     
     const callback = useCallback(() => {
@@ -43,7 +44,7 @@ const TaskTimer = memo((props: TaskTimerProps) => {
     const timerString = formatSecondsIntoMinutesAndSeconds(seconds);
     return (
         <div className="h-full grid grid-row-6">
-            <div className="text-8xl timer-label row-span-5">
+            <div className="my-5 text-8xl timer-label row-span-5">
                 {timerString}
             </div>
 
