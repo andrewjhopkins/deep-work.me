@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import MainTask from '../components/MainTask'
+import PomodoroWidget from '../components/PomodoroWidget'
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <MainTask />
+        <PomodoroWidget />
       </main>
 
       <footer>

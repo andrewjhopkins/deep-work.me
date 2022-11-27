@@ -3,14 +3,14 @@ import { formatSecondsIntoMinutesAndSeconds } from "../utils/date";
 import useTimer from "../utils/useTimer";
 
 interface TaskTimerProps {
+    timerRunning: boolean
     timeLeft: number, 
-    timerStarted: boolean
 }
 
 const TaskTimer = memo((props: TaskTimerProps) => {
-    const { timeLeft, timerStarted } = props;
-    const [stateTimerStarted, setStateTimerStarted] = useState(timerStarted);
-
+    const { timerRunning, timeLeft } = props;
+    const [stateTimerStarted, setStateTimerStarted] = useState(timerRunning);
+    
     const callback = useCallback(() => {
         setStateTimerStarted(false)
     }, []);
@@ -18,8 +18,8 @@ const TaskTimer = memo((props: TaskTimerProps) => {
     const [seconds, setSeconds] = useTimer(stateTimerStarted, timeLeft, callback);
 
     useEffect(() => {
-        setStateTimerStarted(timerStarted);
-    }, [timerStarted])
+        setStateTimerStarted(timerRunning);
+    }, [timerRunning])
 
     useEffect(() => {
         setSeconds(timeLeft);
