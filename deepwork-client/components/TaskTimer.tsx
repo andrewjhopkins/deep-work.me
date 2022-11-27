@@ -23,7 +23,7 @@ const TaskTimer = memo((props: TaskTimerProps) => {
     }
 
     const resetButtonClickHandler = () => {
-        dispatch({type: "stop_timer", timeLeft: 1500})
+        dispatch({type: "stop_timer", timeLeft: -1})
     }
     
     const callback = useCallback(() => {
