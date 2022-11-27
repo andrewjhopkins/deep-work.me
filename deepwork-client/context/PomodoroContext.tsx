@@ -13,7 +13,7 @@ const initialState: IState = {
 
 interface IContextProps {
   state: IState;
-  dispatch: ({type}:{type:string}) => void;
+  dispatch: ({type}:{ type: string, timeLeft: number }) => void;
 }
 
 export const PomodoroContext = createContext({} as IContextProps);

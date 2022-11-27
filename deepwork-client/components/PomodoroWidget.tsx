@@ -1,20 +1,10 @@
-import { Main } from "next/document";
-import { useState, useEffect, useContext, memo } from "react";
+import { useContext, memo } from "react";
 import { PomodoroContext } from "../context/PomodoroContext";
 import TaskTimer from "./TaskTimer";
 
 const PomodoroWidget = memo((props) => {
-    const { state, dispatch } = useContext(PomodoroContext);
+    const { state } = useContext(PomodoroContext);
     const { timerRunning, timeLeft } = state;
-
-    const onClickHandler = () => {
-        if (timerRunning) {
-            dispatch({type: "stop_timer"});
-        }
-        else {
-            dispatch({type: "start_timer"});
-        }
-    }
 
     return (
         <div className="m-10 h-80 w-96 grid grid-rows-6 border-2">
@@ -34,23 +24,8 @@ const PomodoroWidget = memo((props) => {
                 <h1>Session</h1>
             </div>
 
-            <div className="row-span-2 text-center">
+            <div className="row-span-3 text-center">
                 <TaskTimer timerRunning={timerRunning} timeLeft={timeLeft} />
-            </div>
-
-            <div className="row-span-1 grid grid-cols-2">
-                <div className="col-span-1">
-                    <div className="text-center h-3/4 w-7/12 m-auto bg-blue-500 hover:bg-blue-600 text-white font-bold rounded py-1"
-                        onClick={onClickHandler}
-                    >
-                        <h1 className="my-1">Start</h1>
-                    </div>
-                </div>
-                <div className="col-span-1">
-                    <div className="text-center h-3/4 w-7/12 m-auto bg-red-500 hover:bg-red-600 text-white font-bold rounded py-1">
-                        <h1 className="my-1">Reset</h1>
-                    </div>
-                </div>
             </div>
         </div>
     );

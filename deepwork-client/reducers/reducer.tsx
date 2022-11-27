@@ -1,15 +1,12 @@
 const reducer = (state = {}, action) => {
-
-    console.log(action.type);
-
     switch (action.type) {
         case "start_timer":
             return {
-                ...state, timerRunning: true
+                ...state, timerRunning: true, timeLeft: action.timeLeft
             }
         case "stop_timer":
             return {
-                ...state, timerRunning: false
+                ...state, timerRunning: false, timeLeft: action.timeLeft
             }
         default:
             return state;
