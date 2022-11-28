@@ -4,15 +4,15 @@ const reducer = (state, action) => {
     switch (action.type) {
         case "start_timer":
             return {
-                ...state, timerRunning: true, timeLeft: action.timeLeft, toastMessage: "Timer started", toastShow: action.toastShow, toastColor: "green"
+                ...state, timerRunning: true, timeLeft: action.timeLeft, toastMessage: "Timer started", toastShow: action.toastShow, toastColor: "blue"
             }
         case "stop_timer":
             return {
-                ...state, timerRunning: false, timeLeft: action.timeLeft, toastMessage: "Timer stopped", toastShow: action.toastShow, toastColor: "red"
+                ...state, timerRunning: false, timeLeft: action.timeLeft, toastMessage: "Timer stopped", toastShow: action.toastShow, toastColor: "indigo"
             }
         case "reset_timer":
             return {
-                ...state, timeLeft: defaultTimes[action.timerMode], toastMessage: "Timer reset", toastShow: action.toastShow, toastColor: "yellow"
+                ...state, timeLeft: defaultTimes[action.timerMode], toastMessage: "Timer reset", toastShow: action.toastShow, toastColor: "red"
             }
         case "timer_complete":
             return {

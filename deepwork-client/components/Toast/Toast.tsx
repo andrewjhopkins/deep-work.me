@@ -7,10 +7,9 @@ function Toast() {
     const { toastMessage, toastShow, toastColor } = state;
 
     const display = {
-        "blue": "border-blue-500",
-        "yellow": "border-yellow-500",
-        "green": "border-green-500",
-        "red": "border-red-500"
+        "blue": "border-blue-900",
+        "indigo": "border-indigo-900",
+        "red": "border-red-900"
     };
 
     const css = `
@@ -30,7 +29,7 @@ function Toast() {
     });
 
     return (
-        <div className={`${toastShow ? "" : "hidden-fade-out"} fixed right-10 bottom-10 px-5 py-4 border-r-8 ${ display[toastColor] } bg-white drop-shadow-lg`}>
+        <div className={`${toastShow ? "" : "hidden-fade-out"} fixed right-10 bottom-10 px-5 py-4 border-r-8 ${ display[toastColor] } bg-gray-800 drop-shadow-lg text-white opacity-90`}>
             <style>{css}</style>
             <h1>{toastMessage}</h1>
         </div>
