@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/coffee.ico" />
       </Head>
       <main>
         <Draggable
