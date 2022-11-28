@@ -10,9 +10,15 @@ interface TaskTimerProps {
 }
 
 const TaskTimer = memo((props: TaskTimerProps) => {
+    const callback = useCallback(() => {
+        new Audio("/sound.mp3").play();
+        dispatch({ ...state, type: "timer_complete"});
+    }, []);
+
     const { state, dispatch } = useContext(PomodoroContext);
     const { timerRunning, timeLeft, timerMode } = props;
     const [stateTimerStarted, setStateTimerStarted] = useState(timerRunning);
+    const [seconds, setSeconds] = useTimer(stateTimerStarted, timeLeft, callback);
 
     const startButtonClickHandler = () => {
         if (timerRunning) {
@@ -24,15 +30,10 @@ const TaskTimer = memo((props: TaskTimerProps) => {
     }
 
     const resetButtonClickHandler = () => {
-        dispatch({ ...state, type: "reset_timer", toastShow: true })
+        dispatch({ ...state, type: "reset_timer", toastShow: true });
+        setSeconds(timeLeft);
     }
     
-    const callback = useCallback(() => {
-        setStateTimerStarted(false)
-    }, []);
-
-    const [seconds, setSeconds] = useTimer(stateTimerStarted, timeLeft, callback);
-
     useEffect(() => {
         setStateTimerStarted(timerRunning);
     }, [timerRunning])
@@ -50,7 +51,7 @@ const TaskTimer = memo((props: TaskTimerProps) => {
 
             <div className="grid grid-cols-2 row-span-1">
                 <div className="col-span-1">
-                    <div className="my-2 text-center w-7/12 m-auto bg-blue-500 hover:bg-blue-600 text-white font-bold rounded py-1"
+                    <div className={`${seconds == 0 ? "pointer-events-none opacity-75" : ""} my-2 text-center w-7/12 m-auto bg-blue-500 hover:bg-blue-600 text-white font-bold rounded py-1`}
                         onClick={startButtonClickHandler}>
                         <h1>{timerRunning ? "Stop" : "Start"}</h1>
                     </div>

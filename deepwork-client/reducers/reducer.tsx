@@ -1,14 +1,4 @@
-const defaultTimes = {
-    "pomodoro": 1500,
-    "short-break": 300,
-    "long-break": 900
-}
-
-const displayNames = {
-    "pomodoro": "Pomodoro",
-    "short-break": "Short Break",
-    "long-break": "Long Break",
-}
+import { defaultTimes, displayNames } from "../utils/constants"
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -23,6 +13,10 @@ const reducer = (state, action) => {
         case "reset_timer":
             return {
                 ...state, timeLeft: defaultTimes[action.timerMode], toastMessage: "Timer reset", toastShow: action.toastShow, toastColor: "yellow"
+            }
+        case "timer_complete":
+            return {
+                ...state, timerRunning: false, toastMessage: `${displayNames[state.timerMode]} complete!`, toastShow: true, toastColor: "green"
             }
         case "change_timer_mode":
             let timeLeft: number = state.timerMode != action.timerMode ? defaultTimes[action.timerMode] : action.timeLeft;

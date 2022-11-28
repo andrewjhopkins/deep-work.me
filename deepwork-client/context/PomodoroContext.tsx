@@ -1,4 +1,5 @@
 import React, { useReducer, createContext } from 'react';
+import { defaultTimes } from '../utils/constants';
 import reducer from "../reducers/reducer";
 
 interface IState {
@@ -13,7 +14,7 @@ interface IState {
 
 const initialState: IState = {
     timerRunning: false,
-    timeLeft: 1500,
+    timeLeft: defaultTimes["pomodoro"],
     timerMode: "pomodoro",
 
     toastMessage: "",
