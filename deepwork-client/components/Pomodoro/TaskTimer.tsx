@@ -16,15 +16,15 @@ const TaskTimer = memo((props: TaskTimerProps) => {
 
     const startButtonClickHandler = () => {
         if (timerRunning) {
-            dispatch({ type: "stop_timer", timerRunning: timerRunning, timeLeft: seconds, timerMode: timerMode, toastMessage: "Timer Stopped", toastShow: true });
+            dispatch({ ...state, type: "stop_timer", timeLeft: seconds, toastShow: true });
         }
         else {
-            dispatch({ type: "start_timer", timerRunning: timerRunning, timeLeft: seconds, timerMode: timerMode, toastMessage: "Timer Started", toastShow: true });
+            dispatch({ ...state, type: "start_timer", timeLeft: seconds, toastShow: true });
         }
     }
 
     const resetButtonClickHandler = () => {
-        dispatch({ type: "stop_timer", timerRunning: timerRunning, timeLeft: -1, timerMode: timerMode, toastMessage: "Reset Timer", toastShow: true })
+        dispatch({ ...state, type: "reset_timer", toastShow: true })
     }
     
     const callback = useCallback(() => {
@@ -56,7 +56,7 @@ const TaskTimer = memo((props: TaskTimerProps) => {
                     </div>
                 </div>
                 <div className="col-span-1">
-                    <div className="my-2 text-center w-7/12 m-auto bg-red-500 hover:bg-red-600 text-white font-bold rounded py-1"
+                    <div className={`${timerRunning ? "pointer-events-none opacity-75" : ""} my-2 text-center w-7/12 m-auto bg-red-500 hover:bg-red-600 text-white font-bold rounded py-1`}
                         onClick={resetButtonClickHandler}>
                         <h1>Reset</h1>
                     </div>
