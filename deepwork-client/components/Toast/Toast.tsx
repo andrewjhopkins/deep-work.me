@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { PomodoroContext } from "../../context/PomodoroContext";
 
-interface IToastProps {
-    message: string,
-    show: boolean,
-}
-
-function Toast(props) {
+function Toast() {
 
     const { state, dispatch } = useContext(PomodoroContext);
-    const { message, show } = props;
+    const { toastMessage, toastShow, toastColor } = state;
+
+    const display = {
+        "blue": "border-blue-500",
+        "yellow": "border-yellow-500",
+        "green": "border-green-500",
+        "red": "border-red-500"
+    };
 
     const css = `
     .hidden-fade-out {
@@ -20,7 +22,7 @@ function Toast(props) {
     `;
 
     useEffect(() => {
-        if (show) {
+        if (toastShow) {
             setTimeout(function () { 
                 dispatch({...state, type: "hide_toast" });
             }, 1500);
@@ -28,9 +30,9 @@ function Toast(props) {
     });
 
     return (
-        <div className={`${show ? "" : "hidden-fade-out"} fixed right-10 bottom-10 px-5 py-4 border-r-8 border-blue-500 bg-white drop-shadow-lg`}>
+        <div className={`${toastShow ? "" : "hidden-fade-out"} fixed right-10 bottom-10 px-5 py-4 border-r-8 ${ display[toastColor] } bg-white drop-shadow-lg`}>
             <style>{css}</style>
-            <h1>{message}</h1>
+            <h1>{toastMessage}</h1>
         </div>
     )
 }

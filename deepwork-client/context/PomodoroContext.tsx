@@ -8,6 +8,7 @@ interface IState {
 
     toastMessage: string,
     toastShow: boolean,
+    toastColor: string,
 }
 
 const initialState: IState = {
@@ -17,11 +18,20 @@ const initialState: IState = {
 
     toastMessage: "",
     toastShow: false,
+    toastColor: "blue",
 };
 
 interface IContextProps {
   state: IState;
-  dispatch: ({type}:{ type: string, timerRunning: boolean, timeLeft: number, timerMode: string, toastMessage: string, toastShow: boolean}) => void;
+  dispatch: ({type}:{ 
+    type: string, 
+    timerRunning: boolean, 
+    timeLeft: number, 
+    timerMode: string, 
+    toastMessage: string, 
+    toastShow: boolean,
+    toastColor: string,
+}) => void;
 }
 
 export const PomodoroContext = createContext({} as IContextProps);

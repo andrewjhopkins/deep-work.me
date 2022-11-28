@@ -1,4 +1,3 @@
-import { stringify } from "querystring";
 import { useContext, memo } from "react";
 import { PomodoroContext } from "../../context/PomodoroContext";
 import TaskTimer from "./TaskTimer";
@@ -14,7 +13,7 @@ const PomodoroWidget = memo((props) => {
 
     const modes: mode[] = [{id: "pomodoro", displayName: "Pomodoro"}, {id: "short-break", displayName: "Short Break"}, {id: "long-break", displayName: "Long Break"}];
 
-    const handleModeChange = (id, displayName) => {
+    const handleModeChange = (id) => {
         dispatch({ ...state, type: "change_timer_mode", timerMode: id, toastShow: true });
     }
 
@@ -22,7 +21,7 @@ const PomodoroWidget = memo((props) => {
         return (
             <div className="col-span-1 text-center">
                 <div id={mode.id} className={`mx-auto my-3 w-10/12 h-5/8 text-center hover:bg-gray-100 text-black font-bold rounded py-1 ${mode.id == timerMode ? "bg-gray-300" : ""}`}
-                    onClick={() => handleModeChange(mode.id, mode.displayName)}
+                    onClick={() => handleModeChange(mode.id)}
                 >
                     <h1>{mode.displayName}</h1>
                 </div>
