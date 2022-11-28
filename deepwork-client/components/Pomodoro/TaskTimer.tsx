@@ -45,6 +45,7 @@ const TaskTimer = memo((props: TaskTimerProps) => {
     const timerString = formatSecondsIntoMinutesAndSeconds(seconds);
     return (
         <div className="h-full grid grid-row-6">
+            <title>{timerRunning ? timerString : "deep-work.me"}</title>
             <div className="my-5 text-8xl timer-label row-span-5">
                 {timerString}
             </div>
