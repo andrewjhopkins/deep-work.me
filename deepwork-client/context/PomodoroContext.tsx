@@ -21,7 +21,7 @@ const initialState: IState = {
 
 interface IContextProps {
   state: IState;
-  dispatch: ({type}:{ type: string, timerRunning: boolean, timeLeft: number, timerMode: string, toastMessage: string}) => void;
+  dispatch: ({type}:{ type: string, timerRunning: boolean, timeLeft: number, timerMode: string, toastMessage: string, toastShow: boolean}) => void;
 }
 
 export const PomodoroContext = createContext({} as IContextProps);

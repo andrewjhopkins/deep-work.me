@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import { PomodoroContext } from "../context/PomodoroContext";
 import Head from 'next/head'
 import PomodoroWidget from '../components/Pomodoro/PomodoroWidget'
@@ -7,7 +7,7 @@ import Toast from '../components/Toast/Toast';
 
 export default function Home() {
   const { state, dispatch } = useContext(PomodoroContext);
-  const { toastMessage } = state;
+  const { toastMessage, toastShow } = state;
 
   return (
     <div>
@@ -26,7 +26,7 @@ export default function Home() {
             <PomodoroWidget />
           </div>
         </Draggable>
-        <Toast message={toastMessage} />
+        <Toast message={toastMessage} show={toastShow} />
       </main>
       <footer>
       </footer>

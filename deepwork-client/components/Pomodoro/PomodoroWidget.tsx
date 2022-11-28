@@ -15,7 +15,7 @@ const PomodoroWidget = memo((props) => {
     const modes: mode[] = [{id: "pomodoro", displayName: "Pomodoro"}, {id: "short-break", displayName: "Short Break"}, {id: "long-break", displayName: "Long Break"}];
 
     const handleModeChange = (id, displayName) => {
-        dispatch({ type: "change_timer_mode", timerRunning: timerRunning, timeLeft: timeLeft, timerMode: id, toastMessage: `Changed to ${displayName} type.` });
+        dispatch({ type: "change_timer_mode", timerRunning: timerRunning, timeLeft: timeLeft, timerMode: id, toastMessage: `Changed to ${displayName} type.`, toastShow: true });
     }
 
     const modeButtons = modes.map((mode: mode) => {

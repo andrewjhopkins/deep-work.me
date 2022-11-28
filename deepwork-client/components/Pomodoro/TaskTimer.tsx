@@ -16,15 +16,15 @@ const TaskTimer = memo((props: TaskTimerProps) => {
 
     const startButtonClickHandler = () => {
         if (timerRunning) {
-            dispatch({ type: "stop_timer", timerRunning: timerRunning, timeLeft: seconds, timerMode: timerMode, toastMessage: "Timer Stopped" });
+            dispatch({ type: "stop_timer", timerRunning: timerRunning, timeLeft: seconds, timerMode: timerMode, toastMessage: "Timer Stopped", toastShow: true });
         }
         else {
-            dispatch({ type: "start_timer", timerRunning: timerRunning, timeLeft: seconds, timerMode: timerMode, toastMessage: "Timer Started" });
+            dispatch({ type: "start_timer", timerRunning: timerRunning, timeLeft: seconds, timerMode: timerMode, toastMessage: "Timer Started", toastShow: true });
         }
     }
 
     const resetButtonClickHandler = () => {
-        dispatch({ type: "stop_timer", timerRunning: timerRunning, timeLeft: -1, timerMode: timerMode, toastMessage: "Reset Timer" })
+        dispatch({ type: "stop_timer", timerRunning: timerRunning, timeLeft: -1, timerMode: timerMode, toastMessage: "Reset Timer", toastShow: true })
     }
     
     const callback = useCallback(() => {
