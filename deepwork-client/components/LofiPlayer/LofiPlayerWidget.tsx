@@ -1,20 +1,29 @@
-import { memo } from "react";
+import { memo, useState } from "react";
+import { BsPlayCircleFill, BsPauseCircleFill } from "react-icons/bs";
+import { IconContext } from "react-icons";
 import YouTube from "react-youtube";
 
 const LofiPlayerWidget = memo((props) => {
-    let player;
+    const [player, setPlayer] = useState(null);
+    const [playing, setPlaying] = useState(false);
 
     function _onReady(event) {
-        player = event.target;
+        setPlayer(event.target);
         event.target.pauseVideo();
     }
 
-    function play() {
-        player.playVideo();
+    function togglePlay() {
+        if(player) {
+            playing ? player.pauseVideo() : player.playVideo();
+            setPlaying(!playing)
+        }
     }
 
     function pause() {
-        player.pauseVideo();
+        if (player) {
+            player.pauseVideo();
+            setPlaying(false);
+        }
     }
 
     const options = {
@@ -29,8 +38,13 @@ const LofiPlayerWidget = memo((props) => {
     return (
         <div className="m-10 h-60 w-96 grid grid-rows-5 border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
             <YouTube id="player" videoId="jfKfPfyJRdk" opts={options} onReady={_onReady} />
-            <div onClick={play}>Play</div>
-            <div onClick={pause}>Pause</div>
+            <IconContext.Provider
+                value={{ color: 'white', size: '20px' }}
+            >
+                <div onClick={togglePlay}>
+                    {playing ? <BsPauseCircleFill /> : <BsPlayCircleFill />}
+                </div>
+            </IconContext.Provider>
         </div>
     )
 });
