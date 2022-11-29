@@ -44,17 +44,15 @@ const LofiPlayerWidget = memo((props) => {
             <IconContext.Provider
                 value={{ color: 'white', size: '20px' }}
             >
-                <div onClick={togglePlay}>
-                    {playing ? <BsPauseCircleFill /> : <BsPlayCircleFill />}
+                <div>
+                    {playing ? <BsPauseCircleFill onClick={togglePlay}/> : <BsPlayCircleFill onClick={togglePlay}/>}
                 </div>
             </IconContext.Provider>
 
             <IconContext.Provider
                 value={{ color: 'red', size: '20px' }}
             >
-                <div onClick={togglePlay}>
-                    <BsYoutube />
-                </div>
+                <BsYoutube />
             </IconContext.Provider>
 
 
