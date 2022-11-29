@@ -38,9 +38,6 @@ const LofiPlayerWidget = memo((props) => {
     return (
         <div className="m-10 h-60 w-96 grid grid-rows-5 border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
             <YouTube id="player" videoId="jfKfPfyJRdk" opts={options} onReady={_onReady} />
-
-            
-
             <IconContext.Provider
                 value={{ color: 'white', size: '20px' }}
             >
@@ -54,9 +51,9 @@ const LofiPlayerWidget = memo((props) => {
             >
                 <BsYoutube />
             </IconContext.Provider>
-
-
-
+            <div>
+                <input id="default-range" type="range" value="30" className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"></input>
+            </div>
         </div>
     )
 });
