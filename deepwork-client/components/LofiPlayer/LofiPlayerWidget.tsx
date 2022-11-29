@@ -1,5 +1,5 @@
 import { memo, useState } from "react";
-import { BsPlayCircleFill, BsPauseCircleFill } from "react-icons/bs";
+import { BsPlayCircleFill, BsPauseCircleFill, BsYoutube } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import YouTube from "react-youtube";
 
@@ -38,6 +38,9 @@ const LofiPlayerWidget = memo((props) => {
     return (
         <div className="m-10 h-60 w-96 grid grid-rows-5 border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
             <YouTube id="player" videoId="jfKfPfyJRdk" opts={options} onReady={_onReady} />
+
+            
+
             <IconContext.Provider
                 value={{ color: 'white', size: '20px' }}
             >
@@ -45,6 +48,17 @@ const LofiPlayerWidget = memo((props) => {
                     {playing ? <BsPauseCircleFill /> : <BsPlayCircleFill />}
                 </div>
             </IconContext.Provider>
+
+            <IconContext.Provider
+                value={{ color: 'red', size: '20px' }}
+            >
+                <div onClick={togglePlay}>
+                    <BsYoutube />
+                </div>
+            </IconContext.Provider>
+
+
+
         </div>
     )
 });
