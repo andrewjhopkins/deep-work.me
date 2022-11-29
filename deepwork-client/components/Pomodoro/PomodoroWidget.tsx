@@ -19,8 +19,8 @@ const PomodoroWidget = memo((props) => {
 
     const modeButtons = modes.map((mode: mode) => {
         return (
-            <div className="col-span-1 text-center">
-                <div id={mode.id} className={`text-white mx-auto my-3 w-10/12 h-5/8 text-center hover:bg-gray-600 text-black font-bold rounded py-1 ${mode.id == timerMode ? "bg-gray-900" : ""}`}
+            <div key={mode.id} className="col-span-1 text-center">
+                <div id={mode.id} className={`text-white mx-auto my-3 w-10/12 h-5/8 text-center hover:bg-gray-600 text-white font-bold rounded py-1 ${mode.id == timerMode ? "bg-gray-900" : ""}`}
                     onClick={() => handleModeChange(mode.id)}
                 >
                     <h1>{mode.displayName}</h1>
