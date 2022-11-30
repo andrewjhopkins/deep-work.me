@@ -27,6 +27,10 @@ const reducer = (state, action) => {
             return {
                 ...state, toastShow: false
             }
+        case "toggle_show_settings":
+            return {
+                ...state, showSettings: !state.showSettings
+            }
         default:
             return state;
     }

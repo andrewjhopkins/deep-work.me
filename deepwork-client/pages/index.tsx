@@ -3,6 +3,8 @@ import PomodoroWidget from "../components/Pomodoro/PomodoroWidget"
 import LofiPlayerWidget from  "../components/LofiPlayer/LofiPlayerWidget";
 import Draggable from "react-draggable";
 import Toast from '../components/Toast/Toast';
+import SettingsButton from '../components/Settings/SettingsButton';
+import SettingsModal from '../components/Settings/SettingsModal';
 
 export default function Home() {
   return (
@@ -11,6 +13,8 @@ export default function Home() {
         <link rel="icon" href="/coffee.ico" />
       </Head>
       <main>
+        <SettingsModal />
+        <SettingsButton />
         <Draggable
           handle=".handle"
           scale={1}>

@@ -10,6 +10,8 @@ interface IState {
     toastMessage: string,
     toastShow: boolean,
     toastColor: string,
+
+    showSettings: boolean
 }
 
 const initialState: IState = {
@@ -20,6 +22,8 @@ const initialState: IState = {
     toastMessage: "",
     toastShow: false,
     toastColor: "blue",
+
+    showSettings: false,
 };
 
 interface IContextProps {
@@ -32,6 +36,7 @@ interface IContextProps {
     toastMessage: string, 
     toastShow: boolean,
     toastColor: string,
+    showSettings: boolean,
 }) => void;
 }
 
