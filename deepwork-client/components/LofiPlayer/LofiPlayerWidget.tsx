@@ -8,24 +8,30 @@ const LofiPlayerWidget = memo((props) => {
     const [playing, setPlaying] = useState(false);
 
     const [playerVolume, setPlayerVolume] = useState(50);
+    const [playerTitle, setPlayerTitle] = useState("");
 
-    function _onReady(event) {
+    const onReady = (event) => {
+        console.log(event.target);
         setPlayer(event.target);
         event.target.pauseVideo();
         event.target.setVolume(playerVolume);
+        setPlayerTitle(event.target.videoTitle);
     }
 
-    function togglePlay() {
+    const togglePlay = () => {
         if(player) {
             playing ? player.pauseVideo() : player.playVideo();
             setPlaying(!playing)
         }
     }
 
-    function handleVolumeChange(event) {
-        console.log(event.target.value);
+    const handleVolumeChange = (event) => {
         setPlayerVolume(event.target.value);
         player.setVolume(playerVolume);
+    }
+
+    const onEnd = () => {
+        console.log("end");
     }
 
     const options = {
@@ -33,30 +39,37 @@ const LofiPlayerWidget = memo((props) => {
         width: '0',
         playerVars: {
           // https://developers.google.com/youtube/player_parameters
-          autoplay: 1,
+          autoplay: 0,
         },
       };
 
     return (
-        <div className="m-10 h-60 w-96 grid grid-rows-6 border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
-            <div className="handle border-2 row-span-1"></div>
-            <YouTube id="player" videoId="jfKfPfyJRdk" opts={options} onReady={_onReady} />
-            <IconContext.Provider
-                value={{ color: 'white', size: '20px' }}
-            >
-                <div>
-                    {playing ? <BsPauseCircleFill onClick={togglePlay}/> : <BsPlayCircleFill onClick={togglePlay}/>}
-                </div>
-            </IconContext.Provider>
-
-            <IconContext.Provider
-                value={{ color: 'red', size: '20px' }}
-            >
-                <BsYoutube />
-            </IconContext.Provider>
-            <div className="w-48">
-                <input onChange={handleVolumeChange} id="default-range" type="range" value={playerVolume} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"></input>
+        <div className="m-10 h-20 w-96 grid grid-rows-6 border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
+            <div className="handle row-span-1">
             </div>
+            <div className="handle row-span-2 grid grid-cols-7">
+                <div className="ml-3 col-span-6 text-white text-sm">
+                    <span>{playerTitle}</span>
+                </div>
+                <div className="col-span-1 flex justify-center">
+                    <IconContext.Provider value={{ color: 'white', size: '20px' }}>
+                        <a onClick={togglePlay} href="https://www.youtube.com/watch?v=jfKfPfyJRdk" target="_blank"><BsYoutube /></a>
+                    </IconContext.Provider>
+                </div>
+           </div>
+
+            <div className="row-span-3 grid grid-cols-12">
+                <div className="ml-3 col-span-1 flex items-center">
+                    <IconContext.Provider value={{ color: 'white', size: '20px' }}>
+                        {playing ? <BsPauseCircleFill onClick={togglePlay}/> : <BsPlayCircleFill onClick={togglePlay}/>}
+                    </IconContext.Provider>
+                </div>
+                <div className="ml-3 mr-3 col-span-11 flex items-center">
+                    <input onChange={handleVolumeChange} id="default-range" type="range" value={playerVolume} className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"></input>
+                </div>
+            </div>
+
+            <YouTube id="player" videoId="jfKfPfyJRdk" opts={options} onReady={onReady} onEnd={onEnd}/>
         </div>
     )
 });
