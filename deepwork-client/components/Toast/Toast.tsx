@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react'
 import { PomodoroContext } from "../../context/PomodoroContext";
 
-function Toast() {
+const Toast = () => {
 
     const { state, dispatch } = useContext(PomodoroContext);
     const { toastMessage, toastShow, toastColor } = state;

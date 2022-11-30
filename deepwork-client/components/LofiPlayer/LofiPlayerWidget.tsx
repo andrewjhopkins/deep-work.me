@@ -44,10 +44,10 @@ const LofiPlayerWidget = memo((props) => {
       };
 
     return (
-        <div className="m-10 h-20 w-96 grid grid-rows-6 border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
-            <div className="handle row-span-1">
+        <div className="h-20 w-96 grid grid-rows-6 border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
+            <div className="handle row-span-1 cursor-move">
             </div>
-            <div className="handle row-span-2 grid grid-cols-7">
+            <div className="handle row-span-2 grid grid-cols-7 cursor-move">
                 <div className="ml-3 col-span-6 text-white text-sm">
                     <span>{playerTitle}</span>
                 </div>
@@ -59,7 +59,7 @@ const LofiPlayerWidget = memo((props) => {
            </div>
 
             <div className="row-span-3 grid grid-cols-12">
-                <div className="ml-3 col-span-1 flex items-center">
+                <div className="ml-3 col-span-1 flex items-center cursor-pointer">
                     <IconContext.Provider value={{ color: 'white', size: '20px' }}>
                         {playing ? <BsPauseCircleFill onClick={togglePlay}/> : <BsPlayCircleFill onClick={togglePlay}/>}
                     </IconContext.Provider>

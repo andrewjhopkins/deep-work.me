@@ -13,22 +13,16 @@ export default function Home() {
       <main>
         <Draggable
           handle=".handle"
-          defaultPosition={{x: 0, y: 0}}
-          position={null}
-          grid={[25, 25]}
           scale={1}>
-          <div className="w-96">
-            <LofiPlayerWidget />
+          <div className="handle w-96 mx-auto mt-10 cursor-move">
+            <PomodoroWidget />
           </div>
         </Draggable>
         <Draggable
           handle=".handle"
-          defaultPosition={{x: 0, y: 0}}
-          position={null}
-          grid={[25, 25]}
           scale={1}>
-          <div className="handle w-96">
-            <PomodoroWidget />
+          <div className="w-96 mx-auto my-0 mt-5">
+            <LofiPlayerWidget />
           </div>
         </Draggable>
         <Toast />
