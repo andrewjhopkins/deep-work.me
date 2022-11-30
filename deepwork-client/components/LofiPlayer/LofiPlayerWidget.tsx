@@ -7,9 +7,12 @@ const LofiPlayerWidget = memo((props) => {
     const [player, setPlayer] = useState(null);
     const [playing, setPlaying] = useState(false);
 
+    const [playerVolume, setPlayerVolume] = useState(50);
+
     function _onReady(event) {
         setPlayer(event.target);
         event.target.pauseVideo();
+        event.target.setVolume(playerVolume);
     }
 
     function togglePlay() {
@@ -19,11 +22,10 @@ const LofiPlayerWidget = memo((props) => {
         }
     }
 
-    function pause() {
-        if (player) {
-            player.pauseVideo();
-            setPlaying(false);
-        }
+    function handleVolumeChange(event) {
+        console.log(event.target.value);
+        setPlayerVolume(event.target.value);
+        player.setVolume(playerVolume);
     }
 
     const options = {
@@ -36,7 +38,8 @@ const LofiPlayerWidget = memo((props) => {
       };
 
     return (
-        <div className="m-10 h-60 w-96 grid grid-rows-5 border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
+        <div className="m-10 h-60 w-96 grid grid-rows-6 border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
+            <div className="handle border-2 row-span-1"></div>
             <YouTube id="player" videoId="jfKfPfyJRdk" opts={options} onReady={_onReady} />
             <IconContext.Provider
                 value={{ color: 'white', size: '20px' }}
@@ -51,8 +54,8 @@ const LofiPlayerWidget = memo((props) => {
             >
                 <BsYoutube />
             </IconContext.Provider>
-            <div>
-                <input id="default-range" type="range" value="30" className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"></input>
+            <div className="w-48">
+                <input onChange={handleVolumeChange} id="default-range" type="range" value={playerVolume} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"></input>
             </div>
         </div>
     )

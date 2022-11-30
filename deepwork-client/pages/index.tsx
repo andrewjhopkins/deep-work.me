@@ -17,7 +17,7 @@ export default function Home() {
           position={null}
           grid={[25, 25]}
           scale={1}>
-          <div className="handle w-96">
+          <div className="w-96">
             <LofiPlayerWidget />
           </div>
         </Draggable>
