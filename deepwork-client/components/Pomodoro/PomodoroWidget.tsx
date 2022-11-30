@@ -41,4 +41,6 @@ const PomodoroWidget = memo((props) => {
     );
 });
 
+PomodoroWidget.displayName = "PomodoroWidget";
+
 export default PomodoroWidget 

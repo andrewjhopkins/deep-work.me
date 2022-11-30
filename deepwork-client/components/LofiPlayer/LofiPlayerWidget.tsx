@@ -53,7 +53,7 @@ const LofiPlayerWidget = memo((props) => {
                 </div>
                 <div className="col-span-1 flex justify-center">
                     <IconContext.Provider value={{ color: 'white', size: '20px' }}>
-                        <a onClick={togglePlay} href="https://www.youtube.com/watch?v=jfKfPfyJRdk" target="_blank"><BsYoutube /></a>
+                        <a onClick={togglePlay} href="https://www.youtube.com/watch?v=jfKfPfyJRdk" target="_blank" rel="noreferrer"><BsYoutube /></a>
                     </IconContext.Provider>
                 </div>
            </div>
@@ -73,5 +73,7 @@ const LofiPlayerWidget = memo((props) => {
         </div>
     )
 });
+
+LofiPlayerWidget.displayName = "LofiPlayerWidget";
 
 export default LofiPlayerWidget;
