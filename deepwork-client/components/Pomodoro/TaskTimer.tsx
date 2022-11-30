@@ -68,5 +68,7 @@ const TaskTimer = memo((props: TaskTimerProps) => {
     )
 });
 
+TaskTimer.displayName = "TaskTimer";
+
 export default TaskTimer;
 
