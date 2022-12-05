@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { PomodoroContext } from "../../context/PomodoroContext";
+import { formatSecondsIntoMinutesAndSeconds, serializeDate } from '../../utils/date';
 
 const SettingsModal = () =>  {
 
@@ -9,6 +10,42 @@ const SettingsModal = () =>  {
     const toggleShowSettings = () => {
         dispatch({...state, type: "toggle_show_settings"});
     }
+
+    interface timeSetting {
+      name: string,
+      time: number,
+    }
+
+    const timeSettings = [
+      {
+        name: "Pomodoro",
+        time: 1500 
+      },
+      {
+        name: "Short Break",
+        time: 300 
+      },
+      {
+        name: "Long Break",
+        time: 900 
+      }
+    ];
+
+    const timeSettingsDisplay = timeSettings.map((timeSetting) => {
+      return (
+        <div className="col-span-2 grid grid-rows-4">
+          <div className="row-span-1 text-white text-center">
+            {timeSetting.name}
+          </div>
+
+          <div className="row-span-2 text-white grid grid-cols-12 mt-2 mx-2">
+            <div className="cursor-pointer bg-gray-600 hover:bg-gray-700 text-white font-bold border-gray-300 col-span-3 flex justify-center items-center text-center"><span className="">-</span></div>
+            <text className="bg-gray-600 col-span-6 flex justify-center items-center text-center">{formatSecondsIntoMinutesAndSeconds(timeSetting.time)}</text>
+            <div className="cursor-pointer bg-gray-600 hover:bg-gray-700 text-white  font-bold col-span-3 flex justify-center items-center text-center"><span className="">+</span></div>
+          </div>
+        </div>
+      );
+    });
 
     return (
       <>
@@ -23,42 +60,7 @@ const SettingsModal = () =>  {
 
                   <div className="row-span-1 text-white text-1xl text-center my-4">Time (minutes)</div>
                   <div className="row-span-3 grid grid-cols-6 my-4">
-                    <div className="col-span-2 grid grid-rows-4">
-
-                      <div className="row-span-1 text-white text-center">
-                        Pomodoro
-                      </div>
-                      <div className="row-span-3 text-white text-center grid grid-cols-6 mt-2">
-                        <div className="col-span-1"><span className="ml-3">-</span></div>
-                        <text className="col-span-4">25:00</text>
-                        <div className="col-span-1"><span className="mr-3">+</span></div>
-                      </div>
-                    </div>
-
-
-                    <div className="col-span-2 grid grid-rows-4">
-                      <div className="row-span-1 text-white text-center">
-                        Short Break
-                      </div>
-                      <div className="row-span-3 text-white text-center grid grid-cols-6 mt-2">
-                        <div className="col-span-1"><span className="ml-3">-</span></div>
-                        <text className="col-span-4">25:00</text>
-                        <div className="col-span-1"><span className="mr-3">+</span></div>
-                      </div>
-                    </div>
-
-
-                    <div className="col-span-2 grid grid-rows-4">
-                      <div className="row-span-1 text-white text-center">
-                        Long Break
-                      </div>
-                      <div className="row-span-3 text-white text-center grid grid-cols-6 mt-2">
-                        <div className="col-span-1"><span className="ml-3">-</span></div>
-                        <text className="col-span-4">25:00</text>
-                        <div className="col-span-1"><span className="mr-3">+</span></div>
-                      </div>
-                    </div>
-
+                    {timeSettingsDisplay}
                   </div>
                 </div>
 
