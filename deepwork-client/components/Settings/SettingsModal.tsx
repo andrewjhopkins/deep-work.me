@@ -11,36 +11,16 @@ const SettingsModal = () =>  {
         dispatch({...state, type: "toggle_show_settings"});
     }
 
-    interface timeSetting {
-      name: string,
-      time: number,
-    }
-
-    const timeSettings = [
-      {
-        name: "Pomodoro",
-        time: 1500 
-      },
-      {
-        name: "Short Break",
-        time: 300 
-      },
-      {
-        name: "Long Break",
-        time: 900 
-      }
-    ];
-
-    const timeSettingsDisplay = timeSettings.map((timeSetting) => {
+    const timeSettingsDisplay = Object.entries(state.timeSettings).map(([key, value]) => {
+      console.log(key);
       return (
         <div className="col-span-2 grid grid-rows-4">
           <div className="row-span-1 text-white text-center">
-            {timeSetting.name}
+            {value.name}
           </div>
-
           <div className="row-span-2 text-white grid grid-cols-12 mt-2 mx-2">
             <div className="cursor-pointer bg-gray-600 hover:bg-gray-700 text-white font-bold border-gray-300 col-span-3 flex justify-center items-center text-center"><span className="">-</span></div>
-            <text className="bg-gray-600 col-span-6 flex justify-center items-center text-center">{formatSecondsIntoMinutesAndSeconds(timeSetting.time)}</text>
+            <text className="bg-gray-600 col-span-6 flex justify-center items-center text-center">{formatSecondsIntoMinutesAndSeconds(value.initialTime)}</text>
             <div className="cursor-pointer bg-gray-600 hover:bg-gray-700 text-white  font-bold col-span-3 flex justify-center items-center text-center"><span className="">+</span></div>
           </div>
         </div>

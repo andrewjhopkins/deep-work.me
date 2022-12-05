@@ -2,6 +2,28 @@ import React, { useReducer, createContext } from 'react';
 import { defaultTimes } from '../utils/constants';
 import reducer from "../reducers/reducer";
 
+interface timeSetting {
+    name: string,
+    initialTime: number
+}
+
+const timeSettingsDefault: {[name: string]: timeSetting} = {
+    "pomodoro": {
+        name: "Pomodoro",
+        initialTime: 1500
+    },
+    "short_break": {
+        name: "Short Break",
+        initialTime: 300,
+    },
+    "long_break": {
+        name: "Long Break",
+        initialTime: 600
+    }
+};
+
+
+
 interface IState {
     timerRunning: boolean,
     timeLeft: number,
@@ -11,7 +33,8 @@ interface IState {
     toastShow: boolean,
     toastColor: string,
 
-    showSettings: boolean
+    showSettings: boolean,
+    timeSettings: {[name: string]: timeSetting}
 }
 
 const initialState: IState = {
@@ -24,6 +47,7 @@ const initialState: IState = {
     toastColor: "blue",
 
     showSettings: false,
+    timeSettings: timeSettingsDefault,
 };
 
 interface IContextProps {
@@ -37,6 +61,7 @@ interface IContextProps {
     toastShow: boolean,
     toastColor: string,
     showSettings: boolean,
+    timeSettings: {[name: string]: timeSetting}
 }) => void;
 }
 
