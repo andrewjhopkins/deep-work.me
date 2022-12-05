@@ -15,25 +15,23 @@ const SettingsModal = () =>  {
         {showSettings ? (
           <>
             <div style={{ zIndex: 999}} className="fixed inset-0 mx-auto my-32 h-64 w-96 border-2 z-10 border-2 border-gray-900 bg-gray-800 rounded-lg grid grid-rows-6">
-              <div className="row-span-5 grid grid-rows-6">
-
-                <div className="row-span-1 text-white text-center text-1xl">
-                  <div className="my-1">Settings</div>
+                <div className="row-span-1 text-white text-center text-1xl border-b">
+                  <div className="my-2">Settings</div>
                 </div>
 
-                <div className="row-span-5 grid grid-rows-4 border-b-2">
+                <div className="row-span-4 grid grid-rows-4 border-b">
 
-                  <div className="row-span-1 text-white text-1xl text-center my-2">Time(minutes)</div>
-                  <div className="row-span-3 grid grid-cols-6 my-2">
+                  <div className="row-span-1 text-white text-1xl text-center my-4">Time (minutes)</div>
+                  <div className="row-span-3 grid grid-cols-6 my-4">
                     <div className="col-span-2 grid grid-rows-4">
 
                       <div className="row-span-1 text-white text-center">
                         Pomodoro
                       </div>
                       <div className="row-span-3 text-white text-center grid grid-cols-6 mt-2">
-                        <div className="col-span-1"><span className="ml-3">+</span></div>
+                        <div className="col-span-1"><span className="ml-3">-</span></div>
                         <text className="col-span-4">25:00</text>
-                        <div className="col-span-1"><span className="mr-3">-</span></div>
+                        <div className="col-span-1"><span className="mr-3">+</span></div>
                       </div>
                     </div>
 
@@ -43,9 +41,9 @@ const SettingsModal = () =>  {
                         Short Break
                       </div>
                       <div className="row-span-3 text-white text-center grid grid-cols-6 mt-2">
-                        <div className="col-span-1"><span className="ml-3">+</span></div>
+                        <div className="col-span-1"><span className="ml-3">-</span></div>
                         <text className="col-span-4">25:00</text>
-                        <div className="col-span-1"><span className="mr-3">-</span></div>
+                        <div className="col-span-1"><span className="mr-3">+</span></div>
                       </div>
                     </div>
 
@@ -55,15 +53,15 @@ const SettingsModal = () =>  {
                         Long Break
                       </div>
                       <div className="row-span-3 text-white text-center grid grid-cols-6 mt-2">
-                        <div className="col-span-1"><span className="ml-3">+</span></div>
+                        <div className="col-span-1"><span className="ml-3">-</span></div>
                         <text className="col-span-4">25:00</text>
-                        <div className="col-span-1"><span className="mr-3">-</span></div>
+                        <div className="col-span-1"><span className="mr-3">+</span></div>
                       </div>
                     </div>
 
                   </div>
                 </div>
-              </div>
+
               <div className="row-span-1 grid grid-cols-2">
                 <div className="col-span-1 text-white flex justify-center items-center">Default</div>
                 <div className="col-span-1 text-white flex justify-center items-center">Close</div>
