@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { IoMdSettings } from "react-icons/Io";
+import { IoMdSettings } from "react-icons/io";
 import { IconContext } from "react-icons";
 import { PomodoroContext } from "../../context/PomodoroContext";
 
