@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { PomodoroContext, TimeMode } from "../../context/PomodoroContext";
-import { formatSecondsIntoMinutesAndSeconds, serializeDate } from '../../utils/date';
+import { formatSecondsIntoMinutesAndSeconds } from '../../utils/date';
 
 const SettingsModal = () =>  {
 
@@ -24,7 +24,7 @@ const SettingsModal = () =>  {
 
     const timeSettingsDisplay = Object.entries(timeSettings).map(([key, value]) => {
       return (
-        <div className="col-span-2 grid grid-rows-4">
+        <div key={value.name} className="col-span-2 grid grid-rows-4">
           <div className="row-span-1 text-white text-center">
             {value.name}
           </div>
