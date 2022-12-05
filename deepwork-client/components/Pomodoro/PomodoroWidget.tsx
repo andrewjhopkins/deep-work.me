@@ -6,24 +6,17 @@ const PomodoroWidget = memo((props) => {
     const { state, dispatch } = useContext(PomodoroContext);
     const { timerRunning, timeLeft, timerMode } = state;
 
-    interface mode {
-        id: string
-        displayName: string
-    }
-
-    const modes: mode[] = [{id: "pomodoro", displayName: "Pomodoro"}, {id: "short-break", displayName: "Short Break"}, {id: "long-break", displayName: "Long Break"}];
-
     const handleModeChange = (id) => {
         dispatch({ ...state, type: "change_timer_mode", timerMode: id, toastShow: true });
     }
 
-    const modeButtons = modes.map((mode: mode) => {
+    const modeButtons = Object.entries(state.timeSettings).map(([key, value]) => {
         return (
-            <div key={mode.id} className="col-span-1 text-center cursor-pointer">
-                <div id={mode.id} className={`text-white mx-auto my-3 w-10/12 h-5/8 text-center hover:bg-gray-600 text-white font-bold rounded py-1 ${mode.id == timerMode ? "bg-gray-900" : ""}`}
-                    onClick={() => handleModeChange(mode.id)}
+            <div key={key} className="col-span-1 text-center cursor-pointer">
+                <div id={key} className={`text-white mx-auto my-3 w-10/12 h-5/8 text-center hover:bg-gray-600 text-white font-bold rounded py-1 ${key == timerMode ? "bg-gray-900" : ""}`}
+                    onClick={() => handleModeChange(key)}
                 >
-                    <h1>{mode.displayName}</h1>
+                    <h1>{value.name}</h1>
                 </div>
             </div>
         )

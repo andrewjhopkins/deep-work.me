@@ -1,5 +1,4 @@
 import React, { useReducer, createContext } from 'react';
-import { defaultTimes } from '../utils/constants';
 import reducer from "../reducers/reducer";
 
 interface timeSetting {
@@ -7,7 +6,13 @@ interface timeSetting {
     initialTime: number
 }
 
-const timeSettingsDefault: {[name: string]: timeSetting} = {
+export enum TimeMode {
+    pomodoro = "pomodoro",
+    short_break = "short_break",
+    long_break = "long_break"
+}
+
+export const timeSettingsDefault: {[key in keyof typeof TimeMode]: timeSetting} = {
     "pomodoro": {
         name: "Pomodoro",
         initialTime: 1500
@@ -22,32 +27,32 @@ const timeSettingsDefault: {[name: string]: timeSetting} = {
     }
 };
 
-
-
 interface IState {
     timerRunning: boolean,
     timeLeft: number,
-    timerMode: string,
+    timerMode: TimeMode,
 
     toastMessage: string,
     toastShow: boolean,
     toastColor: string,
 
     showSettings: boolean,
-    timeSettings: {[name: string]: timeSetting}
+    timeSettings: {[key in keyof typeof TimeMode]: timeSetting}
 }
+
+const timeSettingsClone = structuredClone(timeSettingsDefault);
 
 const initialState: IState = {
     timerRunning: false,
-    timeLeft: defaultTimes["pomodoro"],
-    timerMode: "pomodoro",
+    timeLeft: timeSettingsClone[TimeMode.pomodoro].initialTime,
+    timerMode: TimeMode.pomodoro,
 
     toastMessage: "",
     toastShow: false,
     toastColor: "blue",
 
     showSettings: false,
-    timeSettings: timeSettingsDefault,
+    timeSettings: timeSettingsClone,
 };
 
 interface IContextProps {

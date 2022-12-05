@@ -11,7 +11,6 @@ const LofiPlayerWidget = memo((props) => {
     const [playerTitle, setPlayerTitle] = useState("");
 
     const onReady = (event) => {
-        console.log(event.target);
         setPlayer(event.target);
         event.target.pauseVideo();
         event.target.setVolume(playerVolume);
@@ -31,7 +30,7 @@ const LofiPlayerWidget = memo((props) => {
     }
 
     const onEnd = () => {
-        console.log("end");
+        //TODO
     }
 
     const options = {

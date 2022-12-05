@@ -1,4 +1,4 @@
-import { defaultTimes, displayNames } from "../utils/constants"
+import { timeSettingsDefault } from "../context/PomodoroContext"
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -12,16 +12,16 @@ const reducer = (state, action) => {
             }
         case "reset_timer":
             return {
-                ...state, timeLeft: defaultTimes[action.timerMode], toastMessage: "Timer reset", toastShow: action.toastShow, toastColor: "red"
+                ...state, timeLeft: state.timeSettings[action.timerMode].initialTime, toastMessage: "Timer reset", toastShow: action.toastShow, toastColor: "red"
             }
         case "timer_complete":
             return {
-                ...state, timerRunning: false, toastMessage: `${displayNames[state.timerMode]} complete!`, toastShow: true, toastColor: "green"
+                ...state, timerRunning: false, toastMessage: `${state.timeSettings[state.timerMode].name} complete!`, toastShow: true, toastColor: "green"
             }
         case "change_timer_mode":
-            let timeLeft: number = state.timerMode != action.timerMode ? defaultTimes[action.timerMode] : action.timeLeft;
+            let timeLeft: number = state.timerMode != action.timerMode ? state.timeSettings[action.timerMode].initialTime : action.timeLeft;
             return {
-                ...state, timerRunning: false, timeLeft: timeLeft, timerMode: action.timerMode, toastMessage: `Changed to ${displayNames[action.timerMode]}`, toastShow: action.toastShow, toastColor: "blue"
+                ...state, timerRunning: false, timeLeft: timeLeft, timerMode: action.timerMode, toastMessage: `Changed to ${state.timeSettings[action.timerMode].name}`, toastShow: action.toastShow, toastColor: "blue"
             }
         case "hide_toast":
             return {
@@ -30,6 +30,14 @@ const reducer = (state, action) => {
         case "toggle_show_settings":
             return {
                 ...state, showSettings: !state.showSettings
+            }
+        case "update_time_settings":
+            return {
+                ...state, timeLeft: action.timeSettings[state.timerMode].initialTime, timeSettings: action.timeSettings
+            }
+        case "default_time_settings":
+            return {
+                ...state, timeLeft: timeSettingsDefault[state.timerMode].initialTime, timeSettings: structuredClone(timeSettingsDefault)
             }
         default:
             return state;
