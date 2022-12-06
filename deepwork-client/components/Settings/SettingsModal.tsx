@@ -33,6 +33,7 @@ const SettingsModal = () =>  {
             <text className="bg-gray-600 col-span-6 flex justify-center items-center text-center">{formatSecondsIntoMinutesAndSeconds(value.initialTime)}</text>
             <div onClick={() => updateInitialTime(key as TimeMode, 60)} className="cursor-pointer bg-gray-600 hover:bg-gray-700 text-white  font-bold col-span-3 flex justify-center items-center text-center"><span className="">+</span></div>
           </div>
+          <div className="row-span-1"></div>
         </div>
       );
     });
