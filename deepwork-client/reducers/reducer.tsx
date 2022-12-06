@@ -32,10 +32,12 @@ const reducer = (state, action) => {
                 ...state, showSettings: !state.showSettings
             }
         case "update_time_settings":
+            localStorage.setItem("deep-work:settings:time", JSON.stringify(action.timeSettings));
             return {
                 ...state, timeLeft: action.timeSettings[state.timerMode].initialTime, timeSettings: action.timeSettings
             }
         case "default_time_settings":
+            localStorage.setItem("deep-work:settings:time", JSON.stringify(timeSettingsDefault));
             return {
                 ...state, timeLeft: timeSettingsDefault[state.timerMode].initialTime, timeSettings: structuredClone(timeSettingsDefault)
             }
