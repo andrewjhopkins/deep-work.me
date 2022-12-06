@@ -10,13 +10,13 @@ const SettingsButton = () => {
         dispatch({...state, type: "toggle_show_settings"});
     }
 
-    return (
+    return(
         <div className="fixed right-10 top-10 cursor-pointer">
             <IconContext.Provider value={{ color: 'white', size: '30px' }}>
                 <IoMdSettings onClick={toggleShowSettings} />
             </IconContext.Provider>
         </div>
-    )
+    );
 }
 
 export default SettingsButton;
