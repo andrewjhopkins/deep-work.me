@@ -5,6 +5,9 @@ import Draggable from "react-draggable";
 import Toast from '../components/Toast/Toast';
 import SettingsButton from '../components/Settings/SettingsButton';
 import SettingsModal from '../components/Settings/SettingsModal';
+import { BrowserView, MobileView } from "react-device-detect";
+
+export const isMobileDevice = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 export default function Home() {
   return (
@@ -14,21 +17,34 @@ export default function Home() {
       </Head>
       <main>
         <SettingsModal />
-        <SettingsButton />
-        <Draggable
-          handle=".handle"
-          scale={1}>
-          <div className="handle w-96 mx-auto mt-10 cursor-move">
-            <PomodoroWidget />
-          </div>
-        </Draggable>
-        <Draggable
-          handle=".handle"
-          scale={1}>
-          <div className="w-96 mx-auto my-0 mt-5">
-            <LofiPlayerWidget />
-          </div>
-        </Draggable>
+        <BrowserView>
+          <SettingsButton isMobile={false} />
+          <Draggable
+            handle=".handle"
+            scale={1}>
+            <div className="handle w-96 mx-auto mt-10 cursor-move">
+              <PomodoroWidget />
+            </div>
+          </Draggable>
+          <Draggable
+            handle=".handle"
+            scale={1}>
+            <div className="w-96 mx-auto my-0 mt-5">
+              <LofiPlayerWidget />
+            </div>
+          </Draggable>
+        </BrowserView>
+
+        <MobileView>
+            <SettingsButton isMobile={true} />
+            <div className="handle w-96 mx-auto mt-10 cursor-move">
+              <PomodoroWidget />
+            </div>
+            <div className="w-96 mx-auto my-0 mt-5">
+              <LofiPlayerWidget />
+            </div>
+        </MobileView>
+
         <Toast />
       </main>
       <footer>
