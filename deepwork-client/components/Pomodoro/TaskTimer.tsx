@@ -11,7 +11,7 @@ interface TaskTimerProps {
 
 const TaskTimer = memo((props: TaskTimerProps) => {
     const callback = useCallback(() => {
-        new Audio("/sound.mp3").play();
+        new Audio("/finish.mp3").play();
         dispatch({ ...state, type: "timer_complete"});
     }, []);
 
@@ -22,9 +22,11 @@ const TaskTimer = memo((props: TaskTimerProps) => {
 
     const startButtonClickHandler = () => {
         if (timerRunning) {
+            new Audio("/stop.mp3").play();
             dispatch({ ...state, type: "stop_timer", timeLeft: seconds, toastShow: true });
         }
         else {
+            new Audio("/start.mp3").play();
             dispatch({ ...state, type: "start_timer", timeLeft: seconds, toastShow: true });
         }
     }
