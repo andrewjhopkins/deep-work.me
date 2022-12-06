@@ -34,7 +34,6 @@ export default function Home() {
         </BrowserView>
 
         <MobileView>
-            <SettingsButton isMobile={true} />
             <div className="handle w-96 mx-auto mt-10 cursor-move">
               <PomodoroWidget />
             </div>
