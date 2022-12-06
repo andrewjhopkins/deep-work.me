@@ -1,4 +1,7 @@
 import { memo, useState } from "react";
+import { IconContext } from "react-icons";
+import { IoMdCheckmark } from "react-icons/io";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 const TaskListWidget = memo(() => {
 
@@ -20,10 +23,21 @@ const TaskListWidget = memo(() => {
     const tasks = sampleTasks.map((task) => {
         return(
             <div className="border border-gray-800 h-10 grid grid-cols-12 bg-gray-700 text-white">
-                <div className="border col-span-1"></div>
+                <div className="ml-2 flex items-center justify-center col-span-1">
+                    <IconContext.Provider value={{ color: 'white', size: '20px' }}>
+                        <IoMdCheckmark />
+                    </IconContext.Provider>
+                </div>
+
                 <div className="flex items-center col-span-9"><span className="ml-2">{task.name}</span></div>
-                <div className="border col-span-1"></div>
-                <div className="border col-span-1"></div>
+                <div className="col-span-1 flex items-center justify-center">
+                    {task.pomodoros_complete}/{task.pomodoros}
+                </div>
+                <div className="col-span-1 flex items-center justify-end">
+                    <IconContext.Provider value={{ color: 'white', size: '20px' }}>
+                        <BsThreeDotsVertical />
+                    </IconContext.Provider>
+                </div>
             </div>
         );
     })
