@@ -3,7 +3,11 @@ import { IoMdSettings } from "react-icons/io";
 import { IconContext } from "react-icons";
 import { PomodoroContext } from "../../context/PomodoroContext";
 
-const SettingsButton = (props) => {
+interface SettingsButtonProps {
+    isMobile: boolean
+}
+
+const SettingsButton = (props: SettingsButtonProps) => {
     const { state, dispatch} = useContext(PomodoroContext);
     const { isMobile } = props;
 
