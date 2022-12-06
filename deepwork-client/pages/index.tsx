@@ -6,6 +6,7 @@ import Toast from '../components/Toast/Toast';
 import SettingsButton from '../components/Settings/SettingsButton';
 import SettingsModal from '../components/Settings/SettingsModal';
 import { BrowserView, MobileView } from "react-device-detect";
+import TaskListWidget from '../components/TaskList/TaskListWidget';
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
               <PomodoroWidget />
             </div>
           </Draggable>
+
           <Draggable
             handle=".handle"
             scale={1}>
@@ -31,6 +33,15 @@ export default function Home() {
               <LofiPlayerWidget />
             </div>
           </Draggable>
+
+          <Draggable
+            handle=".handle"
+            scale={1}>
+            <div className="w-96 mx-auto my-0 mt-5">
+              <TaskListWidget />
+            </div>
+          </Draggable>
+
         </BrowserView>
 
         <MobileView>
@@ -39,6 +50,9 @@ export default function Home() {
             </div>
             <div className="w-96 mx-auto my-0 mt-5">
               <LofiPlayerWidget />
+            </div>
+            <div className="w-96 mx-auto my-0 mt-5">
+              <TaskListWidget />
             </div>
         </MobileView>
 
