@@ -5,7 +5,7 @@ import Draggable from "react-draggable";
 import Toast from '../components/Toast/Toast';
 import SettingsButton from '../components/Settings/SettingsButton';
 import SettingsModal from '../components/Settings/SettingsModal';
-import { BrowserView, MobileView, isMobile } from "react-device-detect";
+import { BrowserView, MobileView } from "react-device-detect";
 
 export default function Home() {
   return (
@@ -15,8 +15,8 @@ export default function Home() {
       </Head>
       <main>
         <SettingsModal />
-        <SettingsButton isMobile={isMobile} />
         <BrowserView>
+          <SettingsButton isMobile={false} />
           <Draggable
             handle=".handle"
             scale={1}>
@@ -34,6 +34,7 @@ export default function Home() {
         </BrowserView>
 
         <MobileView>
+            <SettingsButton isMobile={true} />
             <div className="handle w-96 mx-auto mt-10 cursor-move">
               <PomodoroWidget />
             </div>
