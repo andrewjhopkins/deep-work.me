@@ -42,23 +42,28 @@ const TaskListWidget = memo(() => {
         );
     })
 
+
     return (
-        <div className="handle cursor-move h-52 border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
+        <div className="handle cursor-move h-96 border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
             <div className="grid grid-rows-6 h-full p-2">
 
                 <div className="row-span-1 grid grid-cols-6">
                     <div className="flex justify-center items-center col-span-2 text-white text-1xl text-center"> 
                         Task Tracker
                     </div>
+
                     <div className="col-span-4 grid grid-cols-12 flex justify-center items-center">
                         <div className="cursor-pointer flex justify-center items-center col-start-8 col-span-4 bg-blue-900 hover:bg-blue-800 text-white font-bold rounded h-3/4">Create</div>
                     </div>
                 </div>
 
-                <div className="mt-2 row-span-3">
+                <div className="mt-2 row-span-5">
                     {tasks}
                 </div>
-                <div className="border row-span-2"></div>
+
+                <div className="grid grid-cols-12">
+                    <div className="cursor-pointer flex justify-center items-center col-start-9 col-span-4 bg-red-900 hover:bg-red-800 text-white font-bold rounded h-3/4">Remove All</div>
+                </div>
             </div>
         </div>
     )
