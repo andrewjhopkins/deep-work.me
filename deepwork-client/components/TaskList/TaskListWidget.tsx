@@ -80,12 +80,22 @@ const TaskListWidget = memo(() => {
                             Task
                         </label>
                     </div>
-                    <div className="row-span-2">
+                    <div className="row-span-3">
                         <input className="text-white bg-gray-700 appearance-none rounded w-full h-full py-2 px-4 leading-tight focus:outline-none" placeholder="Do Work" />
                     </div>
                 </div>
 
-                <div className="border row-span-1"></div>
+                <div className="row-span-1 grid grid-cols-12">
+                    <div className="ml-3 flex items-center col-span-9 text-white">
+                        Pomodoros
+                    </div>
+                    <div className="col-span-3 grid grid-cols-3">
+                        <div className="cursor-pointer col-span-1 flex justify-center items-center text-white text-1xl">-</div>
+                        <div className="col-span-1 flex justify-center items-center text-white text-1xl">0</div>
+                        <div className="cursor-pointer col-span-1 flex justify-center items-center text-white text-1xl">+</div>
+                    </div>
+                </div>
+
                 <div className="border row-span-1"></div>
             </div> 
             : 
