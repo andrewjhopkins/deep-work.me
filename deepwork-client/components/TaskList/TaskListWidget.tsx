@@ -6,12 +6,8 @@ import { PomodoroContext } from "../../context/PomodoroContext";
 
 const TaskListWidget = memo(() => {
     const { state, dispatch } = useContext(PomodoroContext);
-
     const [creatingTask, setCreatingTask] = useState(false);
-
     const { taskItems } = state
-
-
 
     const sampleTasks = [
         {
@@ -60,7 +56,7 @@ const TaskListWidget = memo(() => {
 
             <div style={{height: "15%"}} className="grid grid-cols-6">
                 <div className="flex justify-center items-center col-span-2 text-white text-1xl text-center"> 
-                    Task Tracker
+                    Task List 
                 </div>
                 <div className="col-span-4 grid grid-cols-12 flex justify-center items-center">
                     {creatingTask ?
@@ -96,7 +92,12 @@ const TaskListWidget = memo(() => {
                     </div>
                 </div>
 
-                <div className="border row-span-1"></div>
+                <div className="row-span-1 flex items-center justify-center">
+                    <div className="cursor-pointer flex justify-center items-center col-start-8 col-span-4 bg-blue-900 hover:bg-blue-800 text-white font-bold rounded h-3/4 w-1/3">
+                        Create
+                    </div>
+
+                </div>
             </div> 
             : 
             <div style={{height: "85%"}} className="grid grid-rows-6 p-2">
@@ -111,11 +112,9 @@ const TaskListWidget = memo(() => {
             </div>
             }
        
-    
            </div>
     )
 });
 
 TaskListWidget.displayName = "TaskListWidget";
-
 export default TaskListWidget;
