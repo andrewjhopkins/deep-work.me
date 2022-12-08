@@ -12,6 +12,13 @@ export enum TimeMode {
     long_break = "long_break"
 }
 
+interface taskItem {
+    name: string,
+    pomodoros: number,
+    pomodoros_complete: number,
+    finished: boolean,
+}
+
 export const timeSettingsDefault: {[key in keyof typeof TimeMode]: timeSetting} = {
     "pomodoro": {
         name: "Pomodoro",
@@ -37,7 +44,9 @@ interface IState {
     toastColor: string,
 
     showSettings: boolean,
-    timeSettings: {[key in keyof typeof TimeMode]: timeSetting}
+    timeSettings: {[key in keyof typeof TimeMode]: timeSetting},
+
+    taskItems: taskItem[]
 }
 
 const timeSettingsClone = structuredClone(timeSettingsDefault);
@@ -53,6 +62,8 @@ const initialState: IState = {
 
     showSettings: false,
     timeSettings: timeSettingsClone,
+
+    taskItems: []
 };
 
 interface IContextProps {
@@ -66,7 +77,8 @@ interface IContextProps {
     toastShow: boolean,
     toastColor: string,
     showSettings: boolean,
-    timeSettings: {[name: string]: timeSetting}
+    timeSettings: {[name: string]: timeSetting},
+    taskItems: taskItem[]
 }) => void;
 }
 
