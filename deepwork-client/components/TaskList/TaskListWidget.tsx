@@ -8,6 +8,7 @@ import { ITaskItem } from "../../context/PomodoroContext";
 const TaskListWidget = memo(() => {
     const { state, dispatch } = useContext(PomodoroContext);
     const [creatingTask, setCreatingTask] = useState(false);
+    const [updatingTask, setUpdatingTask] = useState(false);
     const [newTask, setNewTask] = useState<ITaskItem>({pomodoros: 0, pomodoros_complete: 0} as ITaskItem);
 
     const { taskItems } = state
@@ -35,6 +36,10 @@ const TaskListWidget = memo(() => {
     const toggleCreatingTask = () => {
         setCreatingTask(!creatingTask);
         setNewTask({pomodoros: 0, pomodoros_complete: 0} as ITaskItem);
+    }
+
+    const toggleUpdatingTask = () => {
+        setUpdatingTask(!updatingTask);
     }
 
     const updateNewTaskName = (target: HTMLInputElement) => {
@@ -66,7 +71,7 @@ const TaskListWidget = memo(() => {
                 <div className="col-span-1 flex items-center justify-center">
                     {task.pomodoros_complete}/{task.pomodoros}
                 </div>
-                <div className="col-span-1 flex items-center justify-end">
+                <div onClick={toggleUpdatingTask} className="col-span-1 flex items-center justify-end cursor-pointer">
                     <IconContext.Provider value={{ color: 'white', size: '20px' }}>
                         <BsThreeDotsVertical />
                     </IconContext.Provider>
@@ -74,7 +79,6 @@ const TaskListWidget = memo(() => {
             </div>
         );
     })
-
 
     return (
         <div className="handle cursor-move h-96 border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
@@ -84,14 +88,14 @@ const TaskListWidget = memo(() => {
                     Task List 
                 </div>
                 <div className="col-span-4 grid grid-cols-12 flex justify-center items-center">
-                    {creatingTask ?
-                    <div onClick={toggleCreatingTask} className={`cursor-pointer flex justify-center items-center col-start-8 col-span-4 bg-red-900 hover:bg-red-800 text-white font-bold rounded h-2/4`}>Exit</div> :
+                    {creatingTask || updatingTask ?
+                    <div onClick={creatingTask ? toggleCreatingTask : toggleUpdatingTask} className={`cursor-pointer flex justify-center items-center col-start-8 col-span-4 bg-red-900 hover:bg-red-800 text-white font-bold rounded h-2/4`}>Exit</div> :
                     <div onClick={toggleCreatingTask} className={`cursor-pointer flex justify-center items-center col-start-8 col-span-4 bg-blue-900 hover:bg-blue-800 text-white font-bold rounded h-2/4`}>Create</div>
                     }
                 </div>
             </div>
 
-            {creatingTask ? 
+            {creatingTask || updatingTask ? 
             <div style={{height: "85%"}} className="grid grid-rows-6 p-2">
 
                 <div className="row-span-2 grid grid-rows-6">
@@ -119,18 +123,15 @@ const TaskListWidget = memo(() => {
 
                 <div className="row-span-1 flex items-center justify-center">
                     <div onClick={createNewTask} className="cursor-pointer flex justify-center items-center col-start-8 col-span-4 bg-blue-900 hover:bg-blue-800 text-white font-bold rounded h-3/4 w-1/3">
-                        Create
+                        {creatingTask ? "Create" : "Update"}
                     </div>
-
                 </div>
             </div> 
             : 
             <div style={{height: "85%"}} className="grid grid-rows-6 p-2">
-
                 <div className="mt-2 row-span-5">
                     {tasks}
                 </div>
-
                 <div className="grid grid-cols-12">
                     <div onClick={() => console.log("hello")} className="cursor-pointer flex justify-center items-center col-start-9 col-span-4 bg-red-900 hover:bg-red-800 text-white font-bold rounded h-3/4">Remove All</div>
                 </div>
