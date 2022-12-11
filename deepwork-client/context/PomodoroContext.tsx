@@ -12,7 +12,7 @@ export enum TimeMode {
     long_break = "long_break"
 }
 
-interface taskItem {
+export interface ITaskItem {
     name: string,
     pomodoros: number,
     pomodoros_complete: number,
@@ -46,7 +46,7 @@ interface IState {
     showSettings: boolean,
     timeSettings: {[key in keyof typeof TimeMode]: timeSetting},
 
-    taskItems: taskItem[]
+    taskItems: ITaskItem[]
 }
 
 const timeSettingsClone = structuredClone(timeSettingsDefault);
@@ -78,7 +78,7 @@ interface IContextProps {
     toastColor: string,
     showSettings: boolean,
     timeSettings: {[name: string]: timeSetting},
-    taskItems: taskItem[]
+    taskItems: ITaskItem[]
 }) => void;
 }
 
@@ -97,4 +97,3 @@ export const PomodoroProvider = ({ children }) => {
     </PomodoroContext.Provider>
     );
 }
-

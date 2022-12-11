@@ -3,10 +3,13 @@ import { IconContext } from "react-icons";
 import { IoMdCheckmark } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { PomodoroContext } from "../../context/PomodoroContext";
+import { ITaskItem } from "../../context/PomodoroContext";
 
 const TaskListWidget = memo(() => {
     const { state, dispatch } = useContext(PomodoroContext);
     const [creatingTask, setCreatingTask] = useState(false);
+    const [newTask, setNewTask] = useState<ITaskItem>({pomodoros: 0, pomodoros_complete: 0} as ITaskItem);
+
     const { taskItems } = state
 
     const sampleTasks = [
@@ -24,11 +27,33 @@ const TaskListWidget = memo(() => {
         }
     ]
 
-    const toggleCreatingTask = () => {
-        setCreatingTask(!creatingTask);
+    const createNewTask = () => {
+        dispatch({...state, taskItems: state.taskItems.concat(newTask), type: "create_new_task"});
+        setCreatingTask(false);
     }
 
-    const tasks = sampleTasks.map((task) => {
+    const toggleCreatingTask = () => {
+        setCreatingTask(!creatingTask);
+        setNewTask({pomodoros: 0, pomodoros_complete: 0} as ITaskItem);
+    }
+
+    const updateNewTaskName = (target: HTMLInputElement) => {
+        setNewTask({...newTask, name: target.value});
+    }
+
+    const incrementNewTaskPomodoros = () => {
+        if (newTask.pomodoros < 10) {
+            setNewTask({...newTask, pomodoros: newTask.pomodoros + 1})
+        }
+    }
+
+    const decrementNewTaskPomodoros = () => {
+        if (newTask.pomodoros > 0) {
+            setNewTask({...newTask, pomodoros: newTask.pomodoros - 1})
+        }
+    }
+
+    const tasks = sampleTasks.concat(taskItems).map((task) => {
         return(
             <div className="border border-gray-800 h-10 grid grid-cols-12 bg-gray-700 text-white">
                 <div className="ml-2 flex items-center justify-center col-span-1">
@@ -77,7 +102,7 @@ const TaskListWidget = memo(() => {
                         </label>
                     </div>
                     <div className="row-span-3">
-                        <input className="text-white bg-gray-700 appearance-none rounded w-full h-full py-2 px-4 leading-tight focus:outline-none" placeholder="Do Work" />
+                        <input onChange={(e) => updateNewTaskName(e.target as HTMLInputElement)} value={newTask.name} className="text-white bg-gray-700 appearance-none rounded w-full h-full py-2 px-4 leading-tight focus:outline-none" placeholder="Do Work" />
                     </div>
                 </div>
 
@@ -86,14 +111,14 @@ const TaskListWidget = memo(() => {
                         Pomodoros
                     </div>
                     <div className="col-span-3 grid grid-cols-3">
-                        <div className="cursor-pointer col-span-1 flex justify-center items-center text-white text-1xl">-</div>
-                        <div className="col-span-1 flex justify-center items-center text-white text-1xl">0</div>
-                        <div className="cursor-pointer col-span-1 flex justify-center items-center text-white text-1xl">+</div>
+                        <div onClick={decrementNewTaskPomodoros} className="cursor-pointer col-span-1 flex justify-center items-center text-white text-1xl">-</div>
+                        <div className="col-span-1 flex justify-center items-center text-white text-1xl">{newTask.pomodoros}</div>
+                        <div onClick={incrementNewTaskPomodoros} className="cursor-pointer col-span-1 flex justify-center items-center text-white text-1xl">+</div>
                     </div>
                 </div>
 
                 <div className="row-span-1 flex items-center justify-center">
-                    <div className="cursor-pointer flex justify-center items-center col-start-8 col-span-4 bg-blue-900 hover:bg-blue-800 text-white font-bold rounded h-3/4 w-1/3">
+                    <div onClick={createNewTask} className="cursor-pointer flex justify-center items-center col-start-8 col-span-4 bg-blue-900 hover:bg-blue-800 text-white font-bold rounded h-3/4 w-1/3">
                         Create
                     </div>
 
