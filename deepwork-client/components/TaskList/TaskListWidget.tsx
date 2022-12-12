@@ -57,6 +57,7 @@ const TaskListWidget = memo(() => {
     }
 
     const tasks = taskItems.map((task, index) => {
+        console.log(task.pomodoros);
         return(
             <div className="border border-gray-800 h-10 grid grid-cols-12 bg-gray-700 text-white">
                 <div className="ml-2 flex items-center justify-center col-span-1">
@@ -67,7 +68,8 @@ const TaskListWidget = memo(() => {
 
                 <div className="flex items-center col-span-9"><span className="ml-2">{task.name}</span></div>
                 <div className="col-span-1 flex items-center justify-center">
-                    {task.pomodoros_complete}/{task.pomodoros}
+                    {task.pomodoros > 0 && `${task.pomodoros_complete}/${task.pomodoros}`}
+
                 </div>
                 <div onClick={() => toggleUpdatingTask(index)} className="col-span-1 flex items-center justify-end cursor-pointer">
                     <IconContext.Provider value={{ color: 'white', size: '20px' }}>
