@@ -57,7 +57,6 @@ const TaskListWidget = memo(() => {
     }
 
     const tasks = taskItems.map((task, index) => {
-        console.log(task.pomodoros);
         return(
             <div className="border border-gray-800 h-10 grid grid-cols-12 bg-gray-700 text-white">
                 <div className="ml-2 flex items-center justify-center col-span-1">
