@@ -2,6 +2,7 @@ import { memo, useContext, useState } from "react";
 import { IconContext } from "react-icons";
 import { IoMdCheckmark } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { FaRedoAlt } from "react-icons/fa";
 import { PomodoroContext } from "../../context/PomodoroContext";
 import { ITaskItem } from "../../context/PomodoroContext";
 
@@ -56,19 +57,36 @@ const TaskListWidget = memo(() => {
         dispatch({...state, taskItems: [], type: "update_task_list"});
     }
 
+    const incrementPomodoroComplete = (index) => {
+        if (state.taskItems[index].pomodoros_complete < state.taskItems[index].pomodoros) {
+            state.taskItems[index] = {...state.taskItems[index], pomodoros_complete: state.taskItems[index].pomodoros_complete + 1};
+            dispatch({...state, taskItems: state.taskItems, type: "update_task_list"});
+        }
+    }
+
+    const redoTask = (index) => {
+        state.taskItems[index] = {...state.taskItems[index], pomodoros_complete: 0};
+        dispatch({...state, taskItems: state.taskItems, type: "update_task_list"});
+    }
+
+
     const tasks = taskItems.map((task, index) => {
+        const taskComplete = task.pomodoros_complete >= task.pomodoros;
         return(
-            <div className="border border-gray-800 h-10 grid grid-cols-12 bg-gray-700 text-white">
-                <div className="ml-2 flex items-center justify-center col-span-1">
+            <div className={`border border-gray-800 h-10 grid grid-cols-12 ${taskComplete ? "bg-green-900 text-white" : "bg-gray-700 text-white"}`}>
+                <div onClick={() => {if (taskComplete) { redoTask(index) }}} className={`ml-2 flex items-center justify-center col-span-1 ${taskComplete && "cursor-pointer"}`}>
+                    {taskComplete ?
+                    <IconContext.Provider value={{ color: 'white', size: '20px' }}>
+                        <FaRedoAlt />
+                    </IconContext.Provider> : 
                     <IconContext.Provider value={{ color: 'white', size: '20px' }}>
                         <IoMdCheckmark />
-                    </IconContext.Provider>
+                    </IconContext.Provider>}
                 </div>
 
-                <div className="flex items-center col-span-9"><span className="ml-2">{task.name}</span></div>
-                <div className="col-span-1 flex items-center justify-center">
+                <div className={`flex items-center col-span-9 ${taskComplete && "line-through"}`}><span className="ml-2">{task.name}</span></div>
+                <div onClick={() => incrementPomodoroComplete(index)} className={`cursor-pointer col-span-1 flex items-center justify-center ${taskComplete && "line-through"}`}>
                     {task.pomodoros > 0 && `${task.pomodoros_complete}/${task.pomodoros}`}
-
                 </div>
                 <div onClick={() => toggleUpdatingTask(index)} className="col-span-1 flex items-center justify-end cursor-pointer">
                     <IconContext.Provider value={{ color: 'white', size: '20px' }}>
