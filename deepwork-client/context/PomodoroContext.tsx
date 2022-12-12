@@ -51,6 +51,21 @@ interface IState {
 
 const timeSettingsClone = structuredClone(timeSettingsDefault);
 
+const sampleTasks: ITaskItem[] = [
+    {
+        "name": "task to do 1",
+        "pomodoros": 2,
+        "pomodoros_complete": 0,
+        "finished": false
+    },
+    {
+        "name": "task to do 2",
+        "pomodoros": 3,
+        "pomodoros_complete": 1,
+        "finished": false
+    }
+]
+
 const initialState: IState = {
     timerRunning: false,
     timeLeft: timeSettingsClone[TimeMode.pomodoro].initialTime,
@@ -63,7 +78,7 @@ const initialState: IState = {
     showSettings: false,
     timeSettings: timeSettingsClone,
 
-    taskItems: []
+    taskItems: sampleTasks
 };
 
 interface IContextProps {

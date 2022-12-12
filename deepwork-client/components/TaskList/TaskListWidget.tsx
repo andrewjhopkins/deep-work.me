@@ -9,28 +9,20 @@ const TaskListWidget = memo(() => {
     const { state, dispatch } = useContext(PomodoroContext);
     const [creatingTask, setCreatingTask] = useState(false);
     const [updatingTask, setUpdatingTask] = useState(false);
+    const [updateTaskIndex, setUpdateTaskIndex] = useState(null);
     const [newTask, setNewTask] = useState<ITaskItem>({pomodoros: 0, pomodoros_complete: 0} as ITaskItem);
 
     const { taskItems } = state
 
-    const sampleTasks = [
-        {
-            "name": "task to do 1",
-            "pomodoros": 2,
-            "pomodoros_complete": 0,
-            "finished": false
-        },
-        {
-            "name": "task to do 2",
-            "pomodoros": 3,
-            "pomodoros_complete": 1,
-            "finished": false
-        }
-    ]
-
     const createNewTask = () => {
-        dispatch({...state, taskItems: state.taskItems.concat(newTask), type: "create_new_task"});
+        dispatch({...state, taskItems: state.taskItems.concat(newTask), type: "update_task_list"});
         setCreatingTask(false);
+    }
+
+    const updateTask = () => {
+        state.taskItems[updateTaskIndex] = newTask;
+        dispatch({...state, taskItems: state.taskItems, type: "update_task_list"});
+        setUpdatingTask(false);
     }
 
     const toggleCreatingTask = () => {
@@ -38,8 +30,10 @@ const TaskListWidget = memo(() => {
         setNewTask({pomodoros: 0, pomodoros_complete: 0} as ITaskItem);
     }
 
-    const toggleUpdatingTask = () => {
+    const toggleUpdatingTask = (index) => {
         setUpdatingTask(!updatingTask);
+        setUpdateTaskIndex(index);
+        setNewTask(taskItems[index]);
     }
 
     const updateNewTaskName = (target: HTMLInputElement) => {
@@ -58,7 +52,11 @@ const TaskListWidget = memo(() => {
         }
     }
 
-    const tasks = sampleTasks.concat(taskItems).map((task) => {
+    const removeAllTasks = () => {
+        dispatch({...state, taskItems: [], type: "update_task_list"});
+    }
+
+    const tasks = taskItems.map((task, index) => {
         return(
             <div className="border border-gray-800 h-10 grid grid-cols-12 bg-gray-700 text-white">
                 <div className="ml-2 flex items-center justify-center col-span-1">
@@ -71,7 +69,7 @@ const TaskListWidget = memo(() => {
                 <div className="col-span-1 flex items-center justify-center">
                     {task.pomodoros_complete}/{task.pomodoros}
                 </div>
-                <div onClick={toggleUpdatingTask} className="col-span-1 flex items-center justify-end cursor-pointer">
+                <div onClick={() => toggleUpdatingTask(index)} className="col-span-1 flex items-center justify-end cursor-pointer">
                     <IconContext.Provider value={{ color: 'white', size: '20px' }}>
                         <BsThreeDotsVertical />
                     </IconContext.Provider>
@@ -122,7 +120,7 @@ const TaskListWidget = memo(() => {
                 </div>
 
                 <div className="row-span-1 flex items-center justify-center">
-                    <div onClick={createNewTask} className="cursor-pointer flex justify-center items-center col-start-8 col-span-4 bg-blue-900 hover:bg-blue-800 text-white font-bold rounded h-3/4 w-1/3">
+                    <div onClick={creatingTask ? createNewTask : updateTask} className="cursor-pointer flex justify-center items-center col-start-8 col-span-4 bg-blue-900 hover:bg-blue-800 text-white font-bold rounded h-3/4 w-1/3">
                         {creatingTask ? "Create" : "Update"}
                     </div>
                 </div>
@@ -133,7 +131,7 @@ const TaskListWidget = memo(() => {
                     {tasks}
                 </div>
                 <div className="grid grid-cols-12">
-                    <div onClick={() => console.log("hello")} className="cursor-pointer flex justify-center items-center col-start-9 col-span-4 bg-red-900 hover:bg-red-800 text-white font-bold rounded h-3/4">Remove All</div>
+                    <div onClick={removeAllTasks} className="cursor-pointer flex justify-center items-center col-start-9 col-span-4 bg-red-900 hover:bg-red-800 text-white font-bold rounded h-3/4">Remove All</div>
                 </div>
             </div>
             }

@@ -41,7 +41,7 @@ const reducer = (state, action) => {
             return {
                 ...state, timeLeft: timeSettingsDefault[state.timerMode].initialTime, timeSettings: structuredClone(timeSettingsDefault)
             }
-        case "create_new_task":
+        case "update_task_list":
             return {
                 ...state, taskItems: action.taskItems
             }
