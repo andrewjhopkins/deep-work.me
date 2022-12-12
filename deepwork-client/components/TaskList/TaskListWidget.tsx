@@ -1,4 +1,4 @@
-import { memo, useContext, useState } from "react";
+import { memo, useContext, useState, useEffect } from "react";
 import { IconContext } from "react-icons";
 import { IoMdCheckmark } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -14,6 +14,14 @@ const TaskListWidget = memo(() => {
     const [newTask, setNewTask] = useState<ITaskItem>({pomodoros: 0, pomodoros_complete: 0} as ITaskItem);
 
     const { taskItems } = state
+
+    useEffect(() => {
+        if(localStorage.getItem("deep-work:taskitems")) {
+            let taskItems: ITaskItem[] = JSON.parse(localStorage.getItem("deep-work:taskitems"));
+            console.log(taskItems, "test");
+            dispatch({...state, taskItems: taskItems, type: "update_task_list"})
+        }
+    }, [])
 
     const createNewTask = () => {
         dispatch({...state, taskItems: state.taskItems.concat(newTask), type: "update_task_list"});
