@@ -2,6 +2,7 @@ import { memo, useContext, useState, useEffect } from "react";
 import { IconContext } from "react-icons";
 import { IoMdCheckmark } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { AiFillDelete } from "react-icons/ai";
 import { FaRedoAlt } from "react-icons/fa";
 import { PomodoroContext } from "../../context/PomodoroContext";
 import { ITaskItem } from "../../context/PomodoroContext";
@@ -11,7 +12,7 @@ const TaskListWidget = memo(() => {
     const [creatingTask, setCreatingTask] = useState(false);
     const [updatingTask, setUpdatingTask] = useState(false);
     const [updateTaskIndex, setUpdateTaskIndex] = useState(null);
-    const [newTask, setNewTask] = useState<ITaskItem>({pomodoros: 0, pomodoros_complete: 0} as ITaskItem);
+    const [newTask, setNewTask] = useState<ITaskItem>({pomodoros: 1, pomodoros_complete: 0} as ITaskItem);
 
     const { taskItems } = state
 
@@ -36,7 +37,7 @@ const TaskListWidget = memo(() => {
 
     const toggleCreatingTask = () => {
         setCreatingTask(!creatingTask);
-        setNewTask({pomodoros: 0, pomodoros_complete: 0} as ITaskItem);
+        setNewTask({pomodoros: 1, pomodoros_complete: 0} as ITaskItem);
     }
 
     const toggleUpdatingTask = (index) => {
@@ -49,6 +50,13 @@ const TaskListWidget = memo(() => {
         setNewTask({...newTask, name: target.value});
     }
 
+    const deleteTask = () => {
+        state.taskItems.splice(updateTaskIndex, 1);
+        dispatch({...state, taskItems: state.taskItems, type: "update_task_list"});
+        setUpdateTaskIndex(null);
+        setUpdatingTask(false);
+    }
+
     const incrementNewTaskPomodoros = () => {
         if (newTask.pomodoros < 10) {
             setNewTask({...newTask, pomodoros: newTask.pomodoros + 1})
@@ -56,7 +64,7 @@ const TaskListWidget = memo(() => {
     }
 
     const decrementNewTaskPomodoros = () => {
-        if (newTask.pomodoros > 0) {
+        if (newTask.pomodoros > 1) {
             const pomodoros = newTask.pomodoros - 1;
             const pomodoros_complete = newTask.pomodoros_complete > pomodoros ? pomodoros : newTask.pomodoros_complete
             setNewTask({...newTask, pomodoros, pomodoros_complete})
@@ -79,9 +87,8 @@ const TaskListWidget = memo(() => {
         dispatch({...state, taskItems: state.taskItems, type: "update_task_list"});
     }
 
-
     const tasks = taskItems.map((task, index) => {
-        const taskComplete = task.pomodoros_complete >= task.pomodoros;
+        const taskComplete = task.pomodoros_complete >= task.pomodoros && task.pomodoros > 0;
         return(
             <div className={`border border-gray-800 h-10 grid grid-cols-12 ${taskComplete ? "bg-green-900 text-white" : "bg-gray-700 text-white"}`}>
                 <div onClick={() => {if (taskComplete) { redoTask(index) }}} className={`ml-2 flex items-center justify-center col-span-1 ${taskComplete && "cursor-pointer"}`}>
@@ -127,11 +134,22 @@ const TaskListWidget = memo(() => {
 
                 <div className="row-span-2 grid grid-rows-6">
 
-                    <div className="row-span-2 text-white">
-                        <label className="text-gray-400 ml-2">
-                            Task
-                        </label>
+                    <div className="row-span-2 text-white grid grid-cols-8">
+                        <div className="col-span-2 flex items-center">
+                            <label className="text-gray-400 ml-2">
+                                Task
+                            </label>
+                        </div>
+
+                        {!creatingTask && 
+                            <div onClick={deleteTask} className="cursor-pointer flex items-center justify-center col-start-8 col-span-1">
+                                <IconContext.Provider value={{ color: 'white', size: '20px' }}>
+                                    <AiFillDelete />
+                                </IconContext.Provider>
+                            </div>
+                        }
                     </div>
+
                     <div className="row-span-3">
                         <input onChange={(e) => updateNewTaskName(e.target as HTMLInputElement)} value={newTask.name} className="text-white bg-gray-700 appearance-none rounded w-full h-full py-2 px-4 leading-tight focus:outline-none" placeholder="Do Work" />
                     </div>
