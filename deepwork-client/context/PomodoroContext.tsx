@@ -12,6 +12,13 @@ export enum TimeMode {
     long_break = "long_break"
 }
 
+export interface ITaskItem {
+    name: string,
+    pomodoros: number,
+    pomodoros_complete: number,
+    finished: boolean,
+}
+
 export const timeSettingsDefault: {[key in keyof typeof TimeMode]: timeSetting} = {
     "pomodoro": {
         name: "Pomodoro",
@@ -37,10 +44,27 @@ interface IState {
     toastColor: string,
 
     showSettings: boolean,
-    timeSettings: {[key in keyof typeof TimeMode]: timeSetting}
+    timeSettings: {[key in keyof typeof TimeMode]: timeSetting},
+
+    taskItems: ITaskItem[]
 }
 
 const timeSettingsClone = structuredClone(timeSettingsDefault);
+
+const sampleTasks: ITaskItem[] = [
+    {
+        "name": "task to do 1",
+        "pomodoros": 2,
+        "pomodoros_complete": 0,
+        "finished": false
+    },
+    {
+        "name": "task to do 2",
+        "pomodoros": 3,
+        "pomodoros_complete": 1,
+        "finished": false
+    }
+]
 
 const initialState: IState = {
     timerRunning: false,
@@ -53,6 +77,8 @@ const initialState: IState = {
 
     showSettings: false,
     timeSettings: timeSettingsClone,
+
+    taskItems: sampleTasks
 };
 
 interface IContextProps {
@@ -66,7 +92,8 @@ interface IContextProps {
     toastShow: boolean,
     toastColor: string,
     showSettings: boolean,
-    timeSettings: {[name: string]: timeSetting}
+    timeSettings: {[name: string]: timeSetting},
+    taskItems: ITaskItem[]
 }) => void;
 }
 
@@ -85,4 +112,3 @@ export const PomodoroProvider = ({ children }) => {
     </PomodoroContext.Provider>
     );
 }
-

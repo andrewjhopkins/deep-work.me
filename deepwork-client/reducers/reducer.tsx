@@ -41,6 +41,11 @@ const reducer = (state, action) => {
             return {
                 ...state, timeLeft: timeSettingsDefault[state.timerMode].initialTime, timeSettings: structuredClone(timeSettingsDefault)
             }
+        case "update_task_list":
+            localStorage.setItem("deep-work:taskitems", JSON.stringify(action.taskItems));
+            return {
+                ...state, taskItems: action.taskItems
+            }
         default:
             return state;
     }
