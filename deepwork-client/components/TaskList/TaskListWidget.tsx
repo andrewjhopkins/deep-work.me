@@ -90,7 +90,7 @@ const TaskListWidget = memo(() => {
     const tasks = taskItems.map((task, index) => {
         const taskComplete = task.pomodoros_complete >= task.pomodoros && task.pomodoros > 0;
         return(
-            <div className={`border border-gray-800 h-10 grid grid-cols-12 ${taskComplete ? "bg-green-900 text-white" : "bg-gray-700 text-white"}`}>
+            <div key={index} className={`border border-gray-800 h-10 grid grid-cols-12 ${taskComplete ? "bg-green-900 text-white" : "bg-gray-700 text-white"}`}>
                 <div onClick={() => {if (taskComplete) { redoTask(index) }}} className={`ml-2 flex items-center justify-center col-span-1 ${taskComplete && "cursor-pointer"}`}>
                     {taskComplete ?
                     <IconContext.Provider value={{ color: 'white', size: '20px' }}>
