@@ -57,7 +57,9 @@ const TaskListWidget = memo(() => {
 
     const decrementNewTaskPomodoros = () => {
         if (newTask.pomodoros > 0) {
-            setNewTask({...newTask, pomodoros: newTask.pomodoros - 1})
+            const pomodoros = newTask.pomodoros - 1;
+            const pomodoros_complete = newTask.pomodoros_complete > pomodoros ? pomodoros : newTask.pomodoros_complete
+            setNewTask({...newTask, pomodoros, pomodoros_complete})
         }
     }
 
