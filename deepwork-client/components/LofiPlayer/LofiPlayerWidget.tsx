@@ -44,8 +44,7 @@ const LofiPlayerWidget = memo((props) => {
 
     return (
         <div className="h-20 w-96 grid grid-rows-6 border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
-            <div className="handle row-span-1 cursor-move">
-            </div>
+            <div className="handle row-span-1 cursor-move"></div>
             <div className="handle row-span-2 grid grid-cols-7 cursor-move">
                 <div className="ml-3 col-span-6 text-white text-sm">
                     <span>{playerTitle}</span>
@@ -67,7 +66,6 @@ const LofiPlayerWidget = memo((props) => {
                     <input onChange={handleVolumeChange} id="default-range" type="range" value={playerVolume} className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"></input>
                 </div>
             </div>
-
             <YouTube id="player" videoId="jfKfPfyJRdk" opts={options} onReady={onReady} onEnd={onEnd}/>
         </div>
     )

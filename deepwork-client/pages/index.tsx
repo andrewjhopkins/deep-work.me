@@ -21,7 +21,7 @@ export default function Home() {
           <Draggable
             handle=".handle"
             scale={1}>
-            <div className="handle w-96 mx-auto mt-20 cursor-move">
+            <div className="w-96 mx-auto mt-20">
               <PomodoroWidget />
             </div>
           </Draggable>

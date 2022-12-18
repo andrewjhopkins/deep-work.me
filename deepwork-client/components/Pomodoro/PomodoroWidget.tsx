@@ -30,13 +30,17 @@ const PomodoroWidget = memo(() => {
     });
 
     return (
-        <div className="h-72 w-96 grid grid-rows-5 border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
-            <div className="row-span-1 grid grid-cols-3">
-                {modeButtons}
+        <div className="border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
+            <div className="cursor-move handle h-2"></div>
+            <div className="h-72 w-96 grid grid-rows-5 ">
+                <div className="row-span-1 grid grid-cols-3">
+                    {modeButtons}
+                </div>
+                <div className="row-span-4 text-center">
+                    <TaskTimer timerRunning={timerRunning} timeLeft={timeLeft} timerMode={timerMode} />
+                </div>
             </div>
-            <div className="row-span-4 text-center">
-                <TaskTimer timerRunning={timerRunning} timeLeft={timeLeft} timerMode={timerMode} />
-            </div>
+            <div className="cursor-move handle h-2"></div>
         </div>
     );
 });
