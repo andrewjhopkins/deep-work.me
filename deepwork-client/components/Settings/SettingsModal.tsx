@@ -42,23 +42,36 @@ const SettingsModal = () =>  {
       <>
         {showSettings ? (
           <>
-            <div style={{ zIndex: 999}} className="fixed inset-0 mx-auto my-32 h-64 w-96 border-2 z-10 border-2 border-gray-900 bg-gray-800 rounded-lg grid grid-rows-6">
+            <div style={{ zIndex: 999}} className="fixed inset-0 mx-auto my-32 h-96 w-96 border-2 z-10 border-2 border-gray-900 bg-gray-800 rounded-lg grid grid-rows-6">
+
                 <div className="row-span-1 text-white text-center text-1xl border-b">
                   <div className="my-2">Settings</div>
                 </div>
 
-                <div className="row-span-4 grid grid-rows-4 border-b border-gray-900">
+                <div className="row-span-4 grid grid-rows-6 border-b border-gray-900">
 
-                  <div className="row-span-1 text-white text-1xl text-center my-4">Time (minutes)</div>
-                  <div className="row-span-3 grid grid-cols-6 my-4">
-                    {timeSettingsDisplay}
+                  <div className="row-span-4 grid grid-rows-4">
+                    <div className="row-span-1 text-white text-1xl flex justify-center items-center">Time (minutes)</div>
+                    <div className="row-span-3 grid grid-cols-6">
+                      {timeSettingsDisplay}
+                    </div>
                   </div>
+
+                  <div className="row-span-2 grid grid-rows-6">
+                    <div className="row-span-2 text-white text-1xl text-center">Background Effect</div>
+                    <div className="row-span-4 grid grid-cols-12">
+                      <div className="mt-2 mx-2 mb-2 cursor-pointer bg-gray-600 hover:bg-gray-700 text-white font-bold border-gray-300 col-span-3 col-start-4 col-start-1 flex justify-center items-center text-center"><span className="">None</span></div>
+                      <div className="mt-2 mx-2 mb-2 cursor-pointer bg-gray-600 hover:bg-gray-700 text-white font-bold border-gray-300 col-span-3 flex justify-center items-center text-center"><span className="">Rain</span></div>
+                    </div>
+                  </div>
+
                 </div>
 
               <div className="row-span-1 grid grid-cols-2">
                 <div onClick={defaultSettings} className="bg-gray-600 hover:bg-gray-700 cursor-pointer border border-gray-900 col-span-1 text-white flex justify-center items-center">Default</div>
                 <div onClick={toggleShowSettings} className="bg-gray-600 hover:bg-gray-700 cursor-pointer border border-gray-900 col-span-1 text-white flex justify-center items-center">Close</div>
               </div>
+
             </div>
             <div onClick={toggleShowSettings} className="fixed inset-0 h-full w-full fixed z-50 bg-black opacity-60"></div>
           </>
