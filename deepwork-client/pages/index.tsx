@@ -7,6 +7,7 @@ import SettingsButton from '../components/Settings/SettingsButton';
 import SettingsModal from '../components/Settings/SettingsModal';
 import { BrowserView, MobileView } from "react-device-detect";
 import TaskListWidget from '../components/TaskList/TaskListWidget';
+import Canvas from '../components/Canvas/Canvas';
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <link rel="icon" href="/coffee.ico" />
       </Head>
       <main>
+        <Canvas />
         <SettingsModal />
         <SettingsButton />
         <BrowserView>

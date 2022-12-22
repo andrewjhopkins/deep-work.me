@@ -46,7 +46,8 @@ interface IState {
     showSettings: boolean,
     timeSettings: {[key in keyof typeof TimeMode]: timeSetting},
 
-    taskItems: ITaskItem[]
+    taskItems: ITaskItem[],
+    backgroundEffect: string
 }
 
 const timeSettingsClone = structuredClone(timeSettingsDefault);
@@ -78,7 +79,8 @@ const initialState: IState = {
     showSettings: false,
     timeSettings: timeSettingsClone,
 
-    taskItems: sampleTasks
+    taskItems: sampleTasks,
+    backgroundEffect: "None"
 };
 
 interface IContextProps {
@@ -93,7 +95,8 @@ interface IContextProps {
     toastColor: string,
     showSettings: boolean,
     timeSettings: {[name: string]: timeSetting},
-    taskItems: ITaskItem[]
+    taskItems: ITaskItem[],
+    backgroundEffect: string
 }) => void;
 }
 
