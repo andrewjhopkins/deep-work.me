@@ -46,6 +46,10 @@ const reducer = (state, action) => {
             return {
                 ...state, taskItems: action.taskItems
             }
+        case "update_background_effect":
+            return {
+                ...state, backgroundEffect: action.backgroundEffect
+            }
         default:
             return state;
     }

@@ -38,17 +38,17 @@ const RainCanvas = () => {
 
     const draw = () => {
         const canvas = canvasRef.current;
-        const context = canvas.getContext("2d");
-        const particles = initParticles();
+        if(canvas != null) {
+            const context = canvas.getContext("2d");
+            const particles = initParticles();
+            context.clearRect(0, 0, canvas.width, canvas.height);
 
-        context.clearRect(0, 0, canvas.width, canvas.height);
-
-        for (let i = 0; i < particles.length; i++) {
-            context.beginPath();
-            context.moveTo(particles[i].x, particles[i].y);
-            context.lineTo(particles[i].x + particles[i].l * particles[i].xs, particles[i].y + particles[i].l * particles[i].ys);
-            context.stroke();
-
+            for (let i = 0; i < particles.length; i++) {
+                context.beginPath();
+                context.moveTo(particles[i].x, particles[i].y);
+                context.lineTo(particles[i].x + particles[i].l * particles[i].xs, particles[i].y + particles[i].l * particles[i].ys);
+                context.stroke();
+            }
         }
     }
 

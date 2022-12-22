@@ -1,11 +1,13 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { PomodoroContext, TimeMode } from "../../context/PomodoroContext";
 import { formatSecondsIntoMinutesAndSeconds } from '../../utils/date';
 
 const SettingsModal = () =>  {
 
     const { state, dispatch } = useContext(PomodoroContext);
-    const { showSettings, timeSettings } = state;
+    const { showSettings, timeSettings, backgroundEffect } = state;
+
+    const backgroundEffects = ["None", "Rain"];
 
     const toggleShowSettings = () => {
         dispatch({...state, type: "toggle_show_settings"});
@@ -20,6 +22,10 @@ const SettingsModal = () =>  {
 
     const defaultSettings = () => {
       dispatch({...state, type: "default_time_settings"});
+    }
+
+    const toggleBackground = (backgroundEffect: string) => {
+      dispatch({...state, backgroundEffect: backgroundEffect, type: "update_background_effect"})
     }
 
     const timeSettingsDisplay = Object.entries(timeSettings).map(([key, value]) => {
@@ -38,18 +44,23 @@ const SettingsModal = () =>  {
       );
     });
 
+    const backgroundSettingsDisplay = backgroundEffects.map((background, index) => {
+      return (
+        <div onClick={() => toggleBackground(background)} key={background} className={`${index == 0 ? "col-start-4" : ""} ${backgroundEffect == background ? "bg-gray-700" : "bg-gray-600 hover:bg-gray-700"} mt-2 mx-2 mb-2 cursor-pointer text-white font-bold border-gray-300 col-span-3 flex justify-center items-center text-center`}><span className="">{background}</span></div>
+      );
+    });
+
     return (
       <>
         {showSettings ? (
           <>
-            <div style={{ zIndex: 999}} className="fixed inset-0 mx-auto my-32 h-96 w-96 border-2 z-10 border-2 border-gray-900 bg-gray-800 rounded-lg grid grid-rows-6">
+            <div style={{ zIndex: 999}} className="fixed inset-0 mx-auto my-32 h-fit w-96 border-2 z-10 border-2 border-gray-900 bg-gray-800 rounded-lg">
 
-                <div className="row-span-1 text-white text-center text-1xl border-b">
+                <div className="h-10 text-white text-center text-1xl border-b">
                   <div className="my-2">Settings</div>
                 </div>
 
-                <div className="row-span-4 grid grid-rows-6 border-b border-gray-900">
-
+              <div className="h-64 grid grid-rows-6">
                   <div className="row-span-4 grid grid-rows-4">
                     <div className="row-span-1 text-white text-1xl flex justify-center items-center">Time (minutes)</div>
                     <div className="row-span-3 grid grid-cols-6">
@@ -60,16 +71,14 @@ const SettingsModal = () =>  {
                   <div className="row-span-2 grid grid-rows-6">
                     <div className="row-span-2 text-white text-1xl text-center">Background Effect</div>
                     <div className="row-span-4 grid grid-cols-12">
-                      <div className="mt-2 mx-2 mb-2 cursor-pointer bg-gray-600 hover:bg-gray-700 text-white font-bold border-gray-300 col-span-3 col-start-4 col-start-1 flex justify-center items-center text-center"><span className="">None</span></div>
-                      <div className="mt-2 mx-2 mb-2 cursor-pointer bg-gray-600 hover:bg-gray-700 text-white font-bold border-gray-300 col-span-3 flex justify-center items-center text-center"><span className="">Rain</span></div>
+                      {backgroundSettingsDisplay}
                     </div>
                   </div>
+              </div>
 
-                </div>
-
-              <div className="row-span-1 grid grid-cols-2">
-                <div onClick={defaultSettings} className="bg-gray-600 hover:bg-gray-700 cursor-pointer border border-gray-900 col-span-1 text-white flex justify-center items-center">Default</div>
-                <div onClick={toggleShowSettings} className="bg-gray-600 hover:bg-gray-700 cursor-pointer border border-gray-900 col-span-1 text-white flex justify-center items-center">Close</div>
+              <div className="h-10 grid grid-cols-2">
+                <div onClick={defaultSettings} className="bg-gray-600 hover:bg-gray-700 cursor-pointer border border-gray-900 col-span-1 text-white flex justify-center items-center rounded-l-md">Default</div>
+                <div onClick={toggleShowSettings} className="bg-gray-600 hover:bg-gray-700 cursor-pointer border border-gray-900 col-span-1 text-white flex justify-center items-center rounded-r-md">Close</div>
               </div>
 
             </div>
