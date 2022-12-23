@@ -1,14 +1,12 @@
 import React, { useRef, useEffect } from 'react'
 
-const particlesLength = 10;
+const particlesLength = 25;
 
 const SnowCanvas = () => {
     const canvasRef = useRef(null);
     let angle = 0;
 
     useEffect(() => {
-        const canvas = canvasRef.current;
-        const context = canvas.getContext("2d");
         snow();
     }, [])
 
@@ -19,8 +17,8 @@ const SnowCanvas = () => {
             particles.push({ 
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                r: Math.random() * (1 + 2),
-                d: Math.random() + 1
+                r: Math.random() * 0.75 + 1,
+                d: Math.random() + 0.75
             });
         }
 
@@ -28,14 +26,14 @@ const SnowCanvas = () => {
     }
 
     const snow = () => {
-        setInterval(draw, 100);
+        const particles = initParticles();
+        setInterval(() => { draw(particles) }, 25);
     }
 
-    const draw = () => {
+    const draw = (particles) => {
         const canvas = canvasRef.current;
         if(canvas != null) {
             const context = canvas.getContext("2d");
-            const particles = initParticles();
             context.clearRect(0, 0, canvas.width, canvas.height);
             context.fillStyle="white";
             context.beginPath();
@@ -50,8 +48,8 @@ const SnowCanvas = () => {
             for (let i = 0; i < particlesLength; i++) {
                 let f = particles[i];
 
-                f.y += 0.00000001;
-                f.x += Math.sin(angle) * 2;
+                f.y += Math.pow(f.d, 1.1);
+                f.x += Math.sin(angle);
 
                 if (f.y > canvas.height) {
                     particles[i] = {x: Math.random() * canvas.width, y: 0, r: f.r, d: f.d}

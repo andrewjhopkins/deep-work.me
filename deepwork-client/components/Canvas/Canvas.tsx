@@ -9,7 +9,8 @@ function Canvas() {
 
   return (
     <div className="h-full w-full">
-      <SnowCanvas />
+      {backgroundEffect == "Rain" && <RainCanvas />}
+      {backgroundEffect == "Snow" && <SnowCanvas />}
     </div>
   )
 }

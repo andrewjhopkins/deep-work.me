@@ -7,7 +7,7 @@ const SettingsModal = () =>  {
     const { state, dispatch } = useContext(PomodoroContext);
     const { showSettings, timeSettings, backgroundEffect } = state;
 
-    const backgroundEffects = ["None", "Rain"];
+    const backgroundEffects = ["None", "Rain", "Snow"];
 
     const toggleShowSettings = () => {
         dispatch({...state, type: "toggle_show_settings"});
@@ -46,7 +46,7 @@ const SettingsModal = () =>  {
 
     const backgroundSettingsDisplay = backgroundEffects.map((background, index) => {
       return (
-        <div onClick={() => toggleBackground(background)} key={background} className={`${index == 0 ? "col-start-4" : ""} ${backgroundEffect == background ? "bg-gray-700" : "bg-gray-600 hover:bg-gray-700"} mt-2 mx-2 mb-2 cursor-pointer text-white font-bold border-gray-300 col-span-3 flex justify-center items-center text-center`}><span className="">{background}</span></div>
+        <div onClick={() => toggleBackground(background)} key={background} className={`${index == 0 ? "col-start-4" : ""} ${backgroundEffect == background ? "bg-gray-700" : "bg-gray-600 hover:bg-gray-700"} mt-2 mx-1 mb-2 cursor-pointer text-white font-bold border-gray-300 col-span-2 flex justify-center items-center text-center`}><span className="">{background}</span></div>
       );
     });
 
