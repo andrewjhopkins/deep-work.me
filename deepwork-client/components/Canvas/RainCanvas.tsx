@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect } from 'react'
 
 const RainCanvas = () => {
     const canvasRef = useRef(null);
@@ -7,12 +7,11 @@ const RainCanvas = () => {
         const canvas = canvasRef.current;
         const context = canvas.getContext("2d");
 
-        context.strokeStyle = "rgba(174, 194, 224, 0.5";
+        context.strokeStyle = "rgba(174, 194, 224, 0.5)";
         context.lineWidth = 0.4;
         context.lineCap = "round";
         context.fillStyle = "#123455";
         context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-
         rain();
     }, [])
 
