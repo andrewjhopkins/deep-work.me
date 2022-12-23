@@ -1,33 +1,26 @@
 import React, { useRef, useEffect } from 'react'
 
+const particlesLength = 10;
+
 const SnowCanvas = () => {
     const canvasRef = useRef(null);
-
-    const particleAmount = 100;
-    const particleSize = [0.5, 1.5];
-    const particleSwing = [0.1, 1];
-    const particleSpeed = [40, 100];
-    const particleAmplitude = [25, 50];
+    let angle = 0;
 
     useEffect(() => {
         const canvas = canvasRef.current;
         const context = canvas.getContext("2d");
-
-        context.fillStyle = "rgb(255, 255, 255)";
         snow();
     }, [])
 
     const initParticles = () => {
         const canvas = canvasRef.current;
         const particles = [];
-        for(let i = 0; i < particleAmount; i++) {
+        for(let i = 0; i < particlesLength; i++) {
             particles.push({ 
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-
-
-                xs: -4 + Math.random() * 4 + 2,
-                ys: Math.random() * 10 + 10,
+                r: Math.random() * (1 + 2),
+                d: Math.random() + 1
             });
         }
 
@@ -35,7 +28,7 @@ const SnowCanvas = () => {
     }
 
     const snow = () => {
-        setInterval(draw, 90);
+        setInterval(draw, 100);
     }
 
     const draw = () => {
@@ -44,8 +37,25 @@ const SnowCanvas = () => {
             const context = canvas.getContext("2d");
             const particles = initParticles();
             context.clearRect(0, 0, canvas.width, canvas.height);
+            context.fillStyle="white";
+            context.beginPath();
+            for (let i = 0; i < particlesLength; i++) {
+                var f = particles[i];
+                context.moveTo(f.x, f.y);
+                context.arc(f.x, f.y, f.r, 0, Math.PI*2, true);
+            }
+            context.fill();
 
-            for (let i = 0; i < particles.length; i++) {
+            angle += 0.01;
+            for (let i = 0; i < particlesLength; i++) {
+                let f = particles[i];
+
+                f.y += 0.00000001;
+                f.x += Math.sin(angle) * 2;
+
+                if (f.y > canvas.height) {
+                    particles[i] = {x: Math.random() * canvas.width, y: 0, r: f.r, d: f.d}
+                }
             }
         }
     }
