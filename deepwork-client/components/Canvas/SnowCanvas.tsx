@@ -59,7 +59,7 @@ const SnowCanvas = () => {
     }
 
     return (
-        <canvas ref={canvasRef} className="border fixed top-0 h-full w-full" id="snow-canvas">
+        <canvas ref={canvasRef} className="fixed top-0 h-full w-full" id="snow-canvas">
         </canvas>
     )
 }
