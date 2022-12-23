@@ -53,7 +53,7 @@ const RainCanvas = () => {
     }
 
     return (
-        <canvas ref={canvasRef} className="border fixed top-0 h-full w-full" id="rain-canvas">
+        <canvas ref={canvasRef} className="fixed top-0 h-full w-full" id="rain-canvas">
         </canvas>
     )
 }
