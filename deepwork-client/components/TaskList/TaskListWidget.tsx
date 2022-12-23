@@ -19,7 +19,6 @@ const TaskListWidget = memo(() => {
     useEffect(() => {
         if(localStorage.getItem("deep-work:taskitems")) {
             let taskItems: ITaskItem[] = JSON.parse(localStorage.getItem("deep-work:taskitems"));
-            console.log(taskItems, "test");
             dispatch({...state, taskItems: taskItems, type: "update_task_list"})
         }
     }, [])
