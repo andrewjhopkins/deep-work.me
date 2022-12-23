@@ -47,6 +47,7 @@ const reducer = (state, action) => {
                 ...state, taskItems: action.taskItems
             }
         case "update_background_effect":
+            localStorage.setItem("deep-work:settings:backgroundEffect", JSON.stringify(action.backgroundEffect));
             return {
                 ...state, backgroundEffect: action.backgroundEffect
             }
