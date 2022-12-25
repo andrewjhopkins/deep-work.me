@@ -4,7 +4,7 @@ import TaskTimer from "./TaskTimer";
 
 const PomodoroWidget = memo(() => {
     const { state, dispatch } = useContext(PomodoroContext);
-    const { timerRunning, timeLeft, timerMode } = state;
+    const { timerRunning, timeLeft, timerMode, currentTask } = state;
 
     useEffect(() => {
         if(localStorage.getItem("deep-work:settings:time")) {
@@ -32,10 +32,11 @@ const PomodoroWidget = memo(() => {
     return (
         <div className="border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
             <div className="cursor-move handle h-2"></div>
-            <div className="h-72 w-96 grid grid-rows-5 ">
+            <div className="h-72 w-96 grid grid-rows-6 ">
                 <div className="row-span-1 grid grid-cols-3">
                     {modeButtons}
                 </div>
+                <div className="row-span-1 text-white flex justify-center items-center">{currentTask.name}</div>
                 <div className="row-span-4 text-center">
                     <TaskTimer timerRunning={timerRunning} timeLeft={timeLeft} timerMode={timerMode} />
                 </div>

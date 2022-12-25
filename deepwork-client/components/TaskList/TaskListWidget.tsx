@@ -6,6 +6,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { FaRedoAlt } from "react-icons/fa";
 import { PomodoroContext } from "../../context/PomodoroContext";
 import { ITaskItem } from "../../context/PomodoroContext";
+import { v4 as uuidv4 } from "uuid";
 
 const TaskListWidget = memo(() => {
     const { state, dispatch } = useContext(PomodoroContext);
@@ -13,8 +14,7 @@ const TaskListWidget = memo(() => {
     const [updatingTask, setUpdatingTask] = useState(false);
     const [updateTaskIndex, setUpdateTaskIndex] = useState(null);
     const [newTask, setNewTask] = useState<ITaskItem>({pomodoros: 1, pomodoros_complete: 0} as ITaskItem);
-
-    const { taskItems } = state
+    const { taskItems, currentTask } = state
 
     useEffect(() => {
         if(localStorage.getItem("deep-work:taskitems")) {
@@ -24,11 +24,15 @@ const TaskListWidget = memo(() => {
     }, [])
 
     const createNewTask = () => {
+        newTask.id = uuidv4();
         dispatch({...state, taskItems: state.taskItems.concat(newTask), type: "update_task_list"});
         setCreatingTask(false);
     }
 
     const updateTask = () => {
+
+        console.log(state.taskItems[updateTaskIndex]);
+
         state.taskItems[updateTaskIndex] = newTask;
         dispatch({...state, taskItems: state.taskItems, type: "update_task_list"});
         setUpdatingTask(false);
@@ -86,6 +90,11 @@ const TaskListWidget = memo(() => {
         dispatch({...state, taskItems: state.taskItems, type: "update_task_list"});
     }
 
+    const updateCurrentTask = (id) => {
+        const newCurrentTask = taskItems.find(x => x.id == id);
+        dispatch({...state, currentTask: newCurrentTask, type: "update_current_task"})
+    }
+
     const tasks = taskItems.map((task, index) => {
         const taskComplete = task.pomodoros_complete >= task.pomodoros && task.pomodoros > 0;
         return(
@@ -100,7 +109,7 @@ const TaskListWidget = memo(() => {
                     </IconContext.Provider>}
                 </div>
 
-                <div className={`flex items-center col-span-9 ${taskComplete && "line-through"}`}><span className="ml-2">{task.name}</span></div>
+                <div onClick={() => updateCurrentTask(task.id)} className={`cursor-pointer flex items-center col-span-9 ${taskComplete && "line-through"} ${task.id == currentTask.id && !taskComplete ? "text-green-600" : "text-white"}`}><span className="ml-2">{task.name}</span></div>
                 <div onClick={() => incrementPomodoroComplete(index)} className={`cursor-pointer col-span-1 flex items-center justify-center ${taskComplete && "line-through"}`}>
                     {task.pomodoros > 0 && `${task.pomodoros_complete}/${task.pomodoros}`}
                 </div>
