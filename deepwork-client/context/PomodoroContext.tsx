@@ -13,7 +13,6 @@ export enum TimeMode {
 }
 
 export interface ITaskItem {
-    id: string,
     name: string,
     pomodoros: number,
     pomodoros_complete: number,
@@ -48,22 +47,19 @@ interface IState {
     timeSettings: {[key in keyof typeof TimeMode]: timeSetting},
 
     taskItems: ITaskItem[],
-    backgroundEffect: string,
-    currentTask: ITaskItem
+    backgroundEffect: string
 }
 
 const timeSettingsClone = structuredClone(timeSettingsDefault);
 
 const sampleTasks: ITaskItem[] = [
     {
-        "id": "18f6d18f-efea-4866-9609-584dc5dfcda5",
         "name": "task to do 1",
         "pomodoros": 2,
         "pomodoros_complete": 0,
         "finished": false
     },
     {
-        "id": "18f6d18f-efea-4866-9609-584dc5dfcda5",
         "name": "task to do 2",
         "pomodoros": 3,
         "pomodoros_complete": 1,
@@ -84,8 +80,7 @@ const initialState: IState = {
     timeSettings: timeSettingsClone,
 
     taskItems: sampleTasks,
-    backgroundEffect: "None",
-    currentTask: {} as ITaskItem
+    backgroundEffect: "None"
 };
 
 interface IContextProps {
@@ -101,8 +96,7 @@ interface IContextProps {
     showSettings: boolean,
     timeSettings: {[name: string]: timeSetting},
     taskItems: ITaskItem[],
-    backgroundEffect: string,
-    currentTask: ITaskItem,
+    backgroundEffect: string
 }) => void;
 }
 

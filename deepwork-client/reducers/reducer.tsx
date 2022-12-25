@@ -51,10 +51,6 @@ const reducer = (state, action) => {
             return {
                 ...state, backgroundEffect: action.backgroundEffect
             }
-        case "update_current_task":
-            return {
-                ...state, currentTask: action.currentTask
-            }
         default:
             return state;
     }
