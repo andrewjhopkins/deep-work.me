@@ -1,13 +1,14 @@
 import React, { useContext } from 'react'
 import { IoMdSettings } from "react-icons/io";
 import { IconContext } from "react-icons";
-import { PomodoroContext } from "../../context/PomodoroContext";
+import { Context } from "../../context/Context";
+import { actionType } from '../../reducers/reducerActionTypes';
 
 const SettingsButton = () => {
-    const { state, dispatch} = useContext(PomodoroContext);
+    const { state, dispatch} = useContext(Context);
 
     const toggleShowSettings = () => {
-        dispatch({...state, type: "toggle_show_settings"});
+        dispatch({...state, type: actionType.toggle_show_settings});
     }
 
     return(

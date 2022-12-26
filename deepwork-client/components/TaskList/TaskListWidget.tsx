@@ -4,11 +4,12 @@ import { IoMdCheckmark } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
 import { FaRedoAlt } from "react-icons/fa";
-import { PomodoroContext } from "../../context/PomodoroContext";
-import { ITaskItem } from "../../context/PomodoroContext";
+import { Context } from "../../context/Context";
+import { ITaskItem } from "../../context/Context";
+import { actionType } from "../../reducers/reducerActionTypes";
 
 const TaskListWidget = memo(() => {
-    const { state, dispatch } = useContext(PomodoroContext);
+    const { state, dispatch } = useContext(Context);
     const [creatingTask, setCreatingTask] = useState(false);
     const [updatingTask, setUpdatingTask] = useState(false);
     const [updateTaskIndex, setUpdateTaskIndex] = useState(null);
@@ -19,18 +20,18 @@ const TaskListWidget = memo(() => {
     useEffect(() => {
         if(localStorage.getItem("deep-work:taskitems")) {
             let taskItems: ITaskItem[] = JSON.parse(localStorage.getItem("deep-work:taskitems"));
-            dispatch({...state, taskItems: taskItems, type: "update_task_list"})
+            dispatch({...state, taskItems: taskItems, type: actionType.update_task_list})
         }
     }, [])
 
     const createNewTask = () => {
-        dispatch({...state, taskItems: state.taskItems.concat(newTask), type: "update_task_list"});
+        dispatch({...state, taskItems: state.taskItems.concat(newTask), type: actionType.update_task_list});
         setCreatingTask(false);
     }
 
     const updateTask = () => {
         state.taskItems[updateTaskIndex] = newTask;
-        dispatch({...state, taskItems: state.taskItems, type: "update_task_list"});
+        dispatch({...state, taskItems: state.taskItems, type: actionType.update_task_list});
         setUpdatingTask(false);
     }
 
@@ -51,7 +52,7 @@ const TaskListWidget = memo(() => {
 
     const deleteTask = () => {
         state.taskItems.splice(updateTaskIndex, 1);
-        dispatch({...state, taskItems: state.taskItems, type: "update_task_list"});
+        dispatch({...state, taskItems: state.taskItems, type: actionType.update_task_list});
         setUpdateTaskIndex(null);
         setUpdatingTask(false);
     }
@@ -71,19 +72,19 @@ const TaskListWidget = memo(() => {
     }
 
     const removeAllTasks = () => {
-        dispatch({...state, taskItems: [], type: "update_task_list"});
+        dispatch({...state, taskItems: [], type: actionType.update_task_list});
     }
 
     const incrementPomodoroComplete = (index) => {
         if (state.taskItems[index].pomodoros_complete < state.taskItems[index].pomodoros) {
             state.taskItems[index] = {...state.taskItems[index], pomodoros_complete: state.taskItems[index].pomodoros_complete + 1};
-            dispatch({...state, taskItems: state.taskItems, type: "update_task_list"});
+            dispatch({...state, taskItems: state.taskItems, type: actionType.update_task_list});
         }
     }
 
     const redoTask = (index) => {
         state.taskItems[index] = {...state.taskItems[index], pomodoros_complete: 0};
-        dispatch({...state, taskItems: state.taskItems, type: "update_task_list"});
+        dispatch({...state, taskItems: state.taskItems, type: actionType.update_task_list});
     }
 
     const tasks = taskItems.map((task, index) => {

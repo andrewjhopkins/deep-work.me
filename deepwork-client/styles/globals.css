@@ -34,7 +34,3 @@ a {
     background: black;
   }
 }
-
-.grid-rows-12 {
-  grid-template-rows: repeat(12, minmax(0, 1fr));
-}

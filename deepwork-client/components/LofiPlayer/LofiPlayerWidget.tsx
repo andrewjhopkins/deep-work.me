@@ -3,7 +3,7 @@ import { BsPlayCircleFill, BsPauseCircleFill, BsYoutube } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import YouTube from "react-youtube";
 
-const LofiPlayerWidget = memo((props) => {
+const LofiPlayerWidget = memo(() => {
     const [player, setPlayer] = useState(null);
     const [playing, setPlaying] = useState(false);
 

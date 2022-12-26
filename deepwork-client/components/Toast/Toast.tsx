@@ -1,9 +1,10 @@
 import React, { useEffect, useContext } from 'react'
-import { PomodoroContext } from "../../context/PomodoroContext";
+import { Context } from "../../context/Context";
+import { actionType } from '../../reducers/reducerActionTypes';
 
 const Toast = () => {
 
-    const { state, dispatch } = useContext(PomodoroContext);
+    const { state, dispatch } = useContext(Context);
     const { toastMessage, toastShow, toastColor } = state;
 
     const display = {
@@ -23,7 +24,7 @@ const Toast = () => {
     useEffect(() => {
         if (toastShow) {
             setTimeout(function () { 
-                dispatch({...state, type: "hide_toast" });
+                dispatch({...state, type: actionType.hide_toast });
             }, 1500);
         }
     });
