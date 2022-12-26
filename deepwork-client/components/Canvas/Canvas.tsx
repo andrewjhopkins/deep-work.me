@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
-import RainCanvas from './RainCanvas'
 import { Context } from '../../context/Context'
+import RainCanvas from './RainCanvas'
 import SnowCanvas from './SnowCanvas';
 import { actionType } from '../../reducers/reducerActionTypes';
 

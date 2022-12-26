@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { Context, TimeMode } from "../../context/Context";
 import { formatSecondsIntoMinutesAndSeconds } from '../../utils/date';
 import { actionType } from '../../reducers/reducerActionTypes';
