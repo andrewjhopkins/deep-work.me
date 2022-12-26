@@ -2,7 +2,7 @@ import { useContext, useState, useEffect, useCallback, memo } from "react";
 import { formatSecondsIntoMinutesAndSeconds } from "../../utils/date";
 import useTimer from "../../utils/useTimer";
 import { Context } from "../../context/Context";
-import { action } from "../../reducers/reducerActions";
+import { actionType } from "../../reducers/reducerActionTypes";
 
 interface TaskTimerProps {
     timerRunning: boolean
@@ -13,7 +13,7 @@ interface TaskTimerProps {
 const TaskTimer = memo((props: TaskTimerProps) => {
     const callback = useCallback(() => {
         new Audio("/finish.mp3").play();
-        dispatch({ ...state, type: action.timer_complete});
+        dispatch({ ...state, type: actionType.timer_complete});
     }, []);
 
     const { state, dispatch } = useContext(Context);
@@ -24,16 +24,16 @@ const TaskTimer = memo((props: TaskTimerProps) => {
     const startButtonClickHandler = () => {
         if (timerRunning) {
             new Audio("/stop.mp3").play();
-            dispatch({ ...state, type: action.stop_timer, timeLeft: seconds, toastShow: true });
+            dispatch({ ...state, type: actionType.stop_timer, timeLeft: seconds, toastShow: true });
         }
         else {
             new Audio("/start.mp3").play();
-            dispatch({ ...state, type: action.start_timer, timeLeft: seconds, toastShow: true });
+            dispatch({ ...state, type: actionType.start_timer, timeLeft: seconds, toastShow: true });
         }
     }
 
     const resetButtonClickHandler = () => {
-        dispatch({ ...state, type: action.reset_timer, toastShow: true });
+        dispatch({ ...state, type: actionType.reset_timer, toastShow: true });
         setSeconds(timeLeft);
     }
     

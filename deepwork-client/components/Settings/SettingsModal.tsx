@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Context, TimeMode } from "../../context/Context";
 import { formatSecondsIntoMinutesAndSeconds } from '../../utils/date';
-import { action } from '../../reducers/reducerActions';
+import { actionType } from '../../reducers/reducerActionTypes';
 
 const SettingsModal = () =>  {
 
@@ -11,22 +11,22 @@ const SettingsModal = () =>  {
     const backgroundEffects = ["None", "Rain", "Snow"];
 
     const toggleShowSettings = () => {
-        dispatch({...state, type: action.toggle_show_settings});
+        dispatch({...state, type: actionType.toggle_show_settings});
     }
 
     const updateInitialTime = (timeMode: TimeMode, change: number) => {
       if (timeSettings[timeMode].initialTime + change >= 0 && timeSettings[timeMode].initialTime + change <= 7200) {
         timeSettings[timeMode].initialTime += change;
-        dispatch({...state, timeSettings: timeSettings, type: action.update_time_settings});
+        dispatch({...state, timeSettings: timeSettings, type: actionType.update_time_settings});
       }
     }
 
     const defaultSettings = () => {
-      dispatch({...state, type: action.default_time_settings});
+      dispatch({...state, type: actionType.default_time_settings});
     }
 
     const toggleBackground = (backgroundEffect: string) => {
-      dispatch({...state, backgroundEffect: backgroundEffect, type: action.update_background_effect})
+      dispatch({...state, backgroundEffect: backgroundEffect, type: actionType.update_background_effect})
     }
 
     const timeSettingsDisplay = Object.entries(timeSettings).map(([key, value]) => {

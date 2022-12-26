@@ -1,4 +1,4 @@
-export enum action {
+export enum actionType {
     start_timer = "start_timer",
     stop_timer = "stop_timer",
     reset_timer = "reset_timer",

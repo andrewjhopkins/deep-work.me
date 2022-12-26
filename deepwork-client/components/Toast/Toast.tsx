@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import { Context } from "../../context/Context";
-import { action } from '../../reducers/reducerActions';
+import { actionType } from '../../reducers/reducerActionTypes';
 
 const Toast = () => {
 
@@ -24,7 +24,7 @@ const Toast = () => {
     useEffect(() => {
         if (toastShow) {
             setTimeout(function () { 
-                dispatch({...state, type: action.hide_toast });
+                dispatch({...state, type: actionType.hide_toast });
             }, 1500);
         }
     });

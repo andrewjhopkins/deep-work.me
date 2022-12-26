@@ -1,7 +1,7 @@
 import { useContext, memo, useEffect } from "react";
 import { Context } from "../../context/Context";
 import TaskTimer from "./TaskTimer";
-import { action } from "../../reducers/reducerActions";
+import { actionType } from "../../reducers/reducerActionTypes";
 
 const PomodoroWidget = memo(() => {
     const { state, dispatch } = useContext(Context);
@@ -10,12 +10,12 @@ const PomodoroWidget = memo(() => {
     useEffect(() => {
         if(localStorage.getItem("deep-work:settings:time")) {
             let timeSettings = JSON.parse(localStorage.getItem("deep-work:settings:time"));
-            dispatch({...state, timeSettings: timeSettings, type: action.update_time_settings})
+            dispatch({...state, timeSettings: timeSettings, type: actionType.update_time_settings})
         }
     }, [])
 
     const handleModeChange = (id) => {
-        dispatch({ ...state, type: action.change_timer_mode, timerMode: id, toastShow: true });
+        dispatch({ ...state, type: actionType.change_timer_mode, timerMode: id, toastShow: true });
     }
 
     const modeButtons = Object.entries(state.timeSettings).map(([key, value]) => {
