@@ -9,7 +9,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   height: 100%;
-  background-image: url("../public/background_1.jpg");
+  background-image: url("../public/background_2.jpg");
   background-size: cover;
   background-position: bottom;
   max-width: 100%;
@@ -33,8 +33,4 @@ a {
     color: white;
     background: black;
   }
-}
-
-.grid-rows-12 {
-  grid-template-rows: repeat(12, minmax(0, 1fr));
 }

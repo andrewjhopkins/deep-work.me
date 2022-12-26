@@ -20,25 +20,19 @@ export default function Home() {
         <SettingsModal />
         <SettingsButton />
         <BrowserView>
-          <Draggable
-            handle=".handle"
-            scale={1}>
+          <Draggable handle=".handle" scale={1}>
             <div className="w-96 mx-auto mt-20">
               <PomodoroWidget />
             </div>
           </Draggable>
 
-          <Draggable
-            handle=".handle"
-            scale={1}>
+          <Draggable handle=".handle" scale={1}>
             <div className="w-96 mx-auto my-0 mt-5">
               <LofiPlayerWidget />
             </div>
           </Draggable>
 
-          <Draggable
-            handle=".handle"
-            scale={1}>
+          <Draggable handle=".handle" scale={1}>
             <div className="w-96 mx-auto my-0 mt-5">
               <TaskListWidget />
             </div>
