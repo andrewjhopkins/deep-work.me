@@ -2,12 +2,13 @@ import React, { useContext } from 'react'
 import { IoMdSettings } from "react-icons/io";
 import { IconContext } from "react-icons";
 import { Context } from "../../context/Context";
+import { action } from '../../reducers/reducerActions';
 
 const SettingsButton = () => {
     const { state, dispatch} = useContext(Context);
 
     const toggleShowSettings = () => {
-        dispatch({...state, type: "toggle_show_settings"});
+        dispatch({...state, type: action.toggle_show_settings});
     }
 
     return(
