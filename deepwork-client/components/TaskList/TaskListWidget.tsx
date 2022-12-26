@@ -12,14 +12,15 @@ const TaskListWidget = memo(() => {
     const { state, dispatch } = useContext(Context);
     const [creatingTask, setCreatingTask] = useState(false);
     const [updatingTask, setUpdatingTask] = useState(false);
-    const [updateTaskIndex, setUpdateTaskIndex] = useState(null);
+    const [updateTaskIndex, setUpdateTaskIndex] = useState(-1);
     const [newTask, setNewTask] = useState<ITaskItem>({pomodoros: 1, pomodoros_complete: 0} as ITaskItem);
 
     const { taskItems } = state
 
     useEffect(() => {
-        if(localStorage.getItem("deep-work:taskitems")) {
-            let taskItems: ITaskItem[] = JSON.parse(localStorage.getItem("deep-work:taskitems"));
+        const taskItemsString = localStorage.getItem("deep-work:taskitems");
+        if(taskItemsString) {
+            let taskItems: ITaskItem[] = JSON.parse(taskItemsString);
             dispatch({...state, taskItems: taskItems, type: actionType.update_task_list})
         }
     }, [])
@@ -30,9 +31,11 @@ const TaskListWidget = memo(() => {
     }
 
     const updateTask = () => {
-        state.taskItems[updateTaskIndex] = newTask;
-        dispatch({...state, taskItems: state.taskItems, type: actionType.update_task_list});
-        setUpdatingTask(false);
+        if (updateTaskIndex > -1) {
+            state.taskItems[updateTaskIndex] = newTask;
+            dispatch({...state, taskItems: state.taskItems, type: actionType.update_task_list});
+            setUpdatingTask(false);
+        }
     }
 
     const toggleCreatingTask = () => {
@@ -40,10 +43,14 @@ const TaskListWidget = memo(() => {
         setNewTask({pomodoros: 1, pomodoros_complete: 0} as ITaskItem);
     }
 
-    const toggleUpdatingTask = (index) => {
+    const toggleUpdatingTaskIndex = (index: number) => {
         setUpdatingTask(!updatingTask);
         setUpdateTaskIndex(index);
         setNewTask(taskItems[index]);
+    }
+
+    const toggleUpdatingTask = () => {
+        setUpdatingTask(!updatingTask);
     }
 
     const updateNewTaskName = (target: HTMLInputElement) => {
@@ -53,7 +60,7 @@ const TaskListWidget = memo(() => {
     const deleteTask = () => {
         state.taskItems.splice(updateTaskIndex, 1);
         dispatch({...state, taskItems: state.taskItems, type: actionType.update_task_list});
-        setUpdateTaskIndex(null);
+        setUpdateTaskIndex(-1);
         setUpdatingTask(false);
     }
 
@@ -75,14 +82,14 @@ const TaskListWidget = memo(() => {
         dispatch({...state, taskItems: [], type: actionType.update_task_list});
     }
 
-    const incrementPomodoroComplete = (index) => {
+    const incrementPomodoroComplete = (index: number) => {
         if (state.taskItems[index].pomodoros_complete < state.taskItems[index].pomodoros) {
             state.taskItems[index] = {...state.taskItems[index], pomodoros_complete: state.taskItems[index].pomodoros_complete + 1};
             dispatch({...state, taskItems: state.taskItems, type: actionType.update_task_list});
         }
     }
 
-    const redoTask = (index) => {
+    const redoTask = (index: number) => {
         state.taskItems[index] = {...state.taskItems[index], pomodoros_complete: 0};
         dispatch({...state, taskItems: state.taskItems, type: actionType.update_task_list});
     }
@@ -105,7 +112,7 @@ const TaskListWidget = memo(() => {
                 <div onClick={() => incrementPomodoroComplete(index)} className={`cursor-pointer col-span-1 flex items-center justify-center ${taskComplete && "line-through"}`}>
                     {task.pomodoros > 0 && `${task.pomodoros_complete}/${task.pomodoros}`}
                 </div>
-                <div onClick={() => toggleUpdatingTask(index)} className="col-span-1 flex items-center justify-end cursor-pointer">
+                <div onClick={() => toggleUpdatingTaskIndex(index)} className="col-span-1 flex items-center justify-end cursor-pointer">
                     <IconContext.Provider value={{ color: 'white', size: '20px' }}>
                         <BsThreeDotsVertical />
                     </IconContext.Provider>
