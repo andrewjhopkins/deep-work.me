@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
-import RainCanvas from './RainCanvas'
 import { Context } from '../../context/Context'
+import RainCanvas from './RainCanvas'
 import SnowCanvas from './SnowCanvas';
 import { actionType } from '../../reducers/reducerActionTypes';
 
@@ -9,10 +9,11 @@ function Canvas() {
   const { backgroundEffect } = state;
 
   useEffect(() => {
-      if(localStorage.getItem("deep-work:settings:backgroundEffect")) {
-          let backgroundEffect = JSON.parse(localStorage.getItem("deep-work:settings:backgroundEffect"));
-          dispatch({...state, backgroundEffect: backgroundEffect, type: actionType.update_background_effect})
-      }
+    const backgroundEffectString: string | null = localStorage.getItem("deep-work:settings:backgroundEffect")
+    if (backgroundEffectString != null) {
+      let backgroundEffect: string = JSON.parse(backgroundEffectString);
+      dispatch({...state, backgroundEffect: backgroundEffect, type: actionType.update_background_effect})
+    }
   }, [])
 
   return (

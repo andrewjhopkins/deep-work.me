@@ -8,13 +8,14 @@ const PomodoroWidget = memo(() => {
     const { timerRunning, timeLeft, timerMode } = state;
 
     useEffect(() => {
-        if(localStorage.getItem("deep-work:settings:time")) {
-            let timeSettings = JSON.parse(localStorage.getItem("deep-work:settings:time"));
+        const settingsTimeString = localStorage.getItem("deep-work:settings:time");
+        if(settingsTimeString) {
+            let timeSettings = JSON.parse(settingsTimeString);
             dispatch({...state, timeSettings: timeSettings, type: actionType.update_time_settings})
         }
     }, [])
 
-    const handleModeChange = (id) => {
+    const handleModeChange = (id: string) => {
         dispatch({ ...state, type: actionType.change_timer_mode, timerMode: id, toastShow: true });
     }
 
