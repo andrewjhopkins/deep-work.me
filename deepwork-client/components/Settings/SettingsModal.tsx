@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react'
-import { PomodoroContext, TimeMode } from "../../context/PomodoroContext";
+import { Context, TimeMode } from "../../context/Context";
 import { formatSecondsIntoMinutesAndSeconds } from '../../utils/date';
 
 const SettingsModal = () =>  {
 
-    const { state, dispatch } = useContext(PomodoroContext);
+    const { state, dispatch } = useContext(Context);
     const { showSettings, timeSettings, backgroundEffect } = state;
 
     const backgroundEffects = ["None", "Rain", "Snow"];

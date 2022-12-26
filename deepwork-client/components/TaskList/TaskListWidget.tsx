@@ -4,8 +4,8 @@ import { IoMdCheckmark } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
 import { FaRedoAlt } from "react-icons/fa";
-import { PomodoroContext } from "../../context/PomodoroContext";
-import { ITaskItem } from "../../context/PomodoroContext";
+import { PomodoroContext } from "../../context/Context";
+import { ITaskItem } from "../../context/Context";
 
 const TaskListWidget = memo(() => {
     const { state, dispatch } = useContext(PomodoroContext);

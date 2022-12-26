@@ -1,4 +1,4 @@
-import { timeSettingsDefault } from "../context/PomodoroContext"
+import { timeSettingsDefault } from "../context/Context"
 
 const reducer = (state, action) => {
     switch (action.type) {

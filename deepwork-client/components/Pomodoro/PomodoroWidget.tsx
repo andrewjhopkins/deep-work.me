@@ -1,9 +1,9 @@
 import { useContext, memo, useEffect } from "react";
-import { PomodoroContext } from "../../context/PomodoroContext";
+import { Context } from "../../context/Context";
 import TaskTimer from "./TaskTimer";
 
 const PomodoroWidget = memo(() => {
-    const { state, dispatch } = useContext(PomodoroContext);
+    const { state, dispatch } = useContext(Context);
     const { timerRunning, timeLeft, timerMode } = state;
 
     useEffect(() => {

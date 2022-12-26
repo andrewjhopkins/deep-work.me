@@ -100,7 +100,7 @@ interface IContextProps {
 }) => void;
 }
 
-export const PomodoroContext = createContext({} as IContextProps);
+export const Context = createContext({} as IContextProps);
 
 const init = (initial) => {
     return initial;
@@ -110,8 +110,8 @@ export const PomodoroProvider = ({ children }) => {
     const [genericState, dispatch] = useReducer(reducer, initialState, init);
     const state = genericState as IState;
 
-    return (<PomodoroContext.Provider value={{ state, dispatch }}>
+    return (<Context.Provider value={{ state, dispatch }}>
         {children}
-    </PomodoroContext.Provider>
+    </Context.Provider>
     );
 }

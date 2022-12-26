@@ -1,9 +1,9 @@
 import React, { useEffect, useContext } from 'react'
-import { PomodoroContext } from "../../context/PomodoroContext";
+import { Context } from "../../context/Context";
 
 const Toast = () => {
 
-    const { state, dispatch } = useContext(PomodoroContext);
+    const { state, dispatch } = useContext(Context);
     const { toastMessage, toastShow, toastColor } = state;
 
     const display = {

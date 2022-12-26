@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect, useCallback, memo } from "react";
 import { formatSecondsIntoMinutesAndSeconds } from "../../utils/date";
 import useTimer from "../../utils/useTimer";
-import { PomodoroContext } from "../../context/PomodoroContext";
+import { Context } from "../../context/Context";
 
 interface TaskTimerProps {
     timerRunning: boolean
@@ -15,7 +15,7 @@ const TaskTimer = memo((props: TaskTimerProps) => {
         dispatch({ ...state, type: "timer_complete"});
     }, []);
 
-    const { state, dispatch } = useContext(PomodoroContext);
+    const { state, dispatch } = useContext(Context);
     const { timerRunning, timeLeft } = props;
     const [stateTimerStarted, setStateTimerStarted] = useState(timerRunning);
     const [seconds, setSeconds] = useTimer(stateTimerStarted, timeLeft, callback);

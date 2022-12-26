@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import RainCanvas from './RainCanvas'
-import { PomodoroContext } from '../../context/PomodoroContext'
+import { Context } from '../../context/Context'
 import SnowCanvas from './SnowCanvas';
 
 function Canvas() {
-  const { state, dispatch } = useContext(PomodoroContext);
+  const { state, dispatch } = useContext(Context);
   const { backgroundEffect } = state;
 
   useEffect(() => {
