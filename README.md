@@ -2,5 +2,5 @@
 
 Comfy lofi productivity app with pomodoro timer and task list
 
-![Screenshot of application]("./deepwork-client/public/site_screenshot.jpg")
+![Screenshot of application](screenshot.jpeg)
 
