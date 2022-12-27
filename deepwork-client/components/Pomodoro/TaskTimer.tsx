@@ -17,17 +17,32 @@ const TaskTimer = memo((props: TaskTimerProps) => {
     }, []);
 
     const { state, dispatch } = useContext(Context);
+    const { soundEnabled } = state;
     const { timerRunning, timeLeft } = props;
     const [stateTimerStarted, setStateTimerStarted] = useState(timerRunning);
     const [seconds, setSeconds] = useTimer(stateTimerStarted, timeLeft, callback);
 
+    useEffect(() => {
+        const soundEnabledString: string | null = localStorage.getItem("deep-work:settings:sound")
+        if (soundEnabledString != null) {
+            let soundEnabled: boolean = JSON.parse(soundEnabledString);
+            dispatch({...state, soundEnabled, type: actionType.update_sound_setting})
+        }
+    }, [])
+
     const startButtonClickHandler = () => {
         if (timerRunning) {
-            new Audio("/stop.mp3").play();
+            if (soundEnabled) {
+                new Audio("/stop.mp3").play();
+            }
+            
             dispatch({ ...state, type: actionType.stop_timer, timeLeft: seconds, toastShow: true });
         }
         else {
-            new Audio("/start.mp3").play();
+            if (soundEnabled) {
+                new Audio("/start.mp3").play();
+            }
+
             dispatch({ ...state, type: actionType.start_timer, timeLeft: seconds, toastShow: true });
         }
     }

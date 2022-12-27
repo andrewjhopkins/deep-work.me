@@ -52,6 +52,11 @@ const reducer = (state, action) => {
             return {
                 ...state, backgroundEffect: action.backgroundEffect
             }
+        case actionType.update_sound_setting:
+            localStorage.setItem("deep-work:settings:sound", JSON.stringify(action.soundEnabled));
+            return {
+                ...state, soundEnabled: action.soundEnabled
+            }
         default:
             return state;
     }
