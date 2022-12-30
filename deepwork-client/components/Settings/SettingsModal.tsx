@@ -65,7 +65,7 @@ const SettingsModal = () =>  {
                   <div className="my-2">Settings</div>
                 </div>
 
-              <div className="h-72 grid grid-rows-4">
+              <div className="h-64 grid grid-rows-4">
                   <div className="row-span-2 grid grid-rows-4">
                     <div className="row-span-1 text-white text-1xl flex justify-center items-center">Time (minutes)</div>
                     <div className="row-span-3 grid grid-cols-6">
@@ -74,7 +74,7 @@ const SettingsModal = () =>  {
                   </div>
 
                   <div className="row-span-1 grid grid-rows-6">
-                    <div className="row-span-2 text-white text-1xl flex justify-center items-center">Sound</div>
+                    <div className="row-span-2 text-white text-1xl flex justify-center items-center">Timer Sounds</div>
                     <div className="row-span-4 grid grid-cols-6">
                         <div onClick={() => toggleSoundSettings(true)} className={`${soundEnabled ? "bg-gray-700" : "bg-gray-600"} col-start-3 mt-2 mx-1 mb-2 cursor-pointer text-white font-bold border-gray-300 col-span-1 flex justify-center items-center text-center`}><span className="">On</span></div>
                         <div onClick={() => toggleSoundSettings(false)} className={`${soundEnabled ? "bg-gray-600" : "bg-gray-700"} mt-2 mx-1 mb-2 cursor-pointer text-white font-bold border-gray-300 col-span-1 flex justify-center items-center text-center`}><span className="">Off</span></div>
