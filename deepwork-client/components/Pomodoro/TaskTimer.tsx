@@ -4,13 +4,13 @@ import useTimer from "../../utils/useTimer";
 import { Context } from "../../context/Context";
 import { actionType } from "../../reducers/reducerActionTypes";
 
-interface TaskTimerProps {
+interface ITaskTimerProps {
     timerRunning: boolean
     timeLeft: number, 
     timerMode: string,
 }
 
-const TaskTimer = memo((props: TaskTimerProps) => {
+const TaskTimer = memo((props: ITaskTimerProps) => {
     const callback = useCallback(() => {
         new Audio("/finish.mp3").play();
         dispatch({ ...state, type: actionType.timer_complete});
