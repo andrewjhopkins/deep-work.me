@@ -93,7 +93,6 @@ const TaskListWidget = memo(() => {
     }
 
     const tasks = taskItems.map((task, index) => {
-        const taskComplete = task.pomodoros_complete >= task.pomodoros && task.pomodoros > 0;
         return(
             <TaskListItem 
                 key={index}
