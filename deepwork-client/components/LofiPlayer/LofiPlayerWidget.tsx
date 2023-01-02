@@ -13,9 +13,7 @@ const LofiPlayerWidget = memo(() => {
     let darkMode: boolean;
 
     const onReady = (event) => {
-        console.log(document.documentElement.classList);
         darkMode = document.documentElement.classList.contains("dark") ? true : false;
-    
         setPlayer(event.target);
         event.target.pauseVideo();
         event.target.setVolume(playerVolume);
