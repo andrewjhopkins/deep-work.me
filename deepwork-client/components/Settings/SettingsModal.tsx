@@ -1,9 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Context, TimeMode } from "../../context/Context";
 import { formatSecondsIntoMinutesAndSeconds } from '../../utils/date';
 import { actionType } from '../../reducers/reducerActionTypes';
+import { IconContext } from "react-icons";
+import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 
 const SettingsModal = () =>  {
+    let darkMode: boolean;
+
+    useEffect(() => {
+      darkMode = document.documentElement.classList.contains("dark") ? true : false;
+    });
 
     const { state, dispatch } = useContext(Context);
     const { showSettings, timeSettings, backgroundEffect, soundEnabled } = state;
@@ -65,7 +72,26 @@ const SettingsModal = () =>  {
                   <div className="my-2">Settings</div>
                 </div>
 
-              <div className="h-64 grid grid-rows-4">
+                <div className="h-80 grid grid-rows-5">
+                  <div className="row-span-1 grid grid-rows-6">
+                    <div className="row-span-2 text-1xl flex justify-center items-center text-zinc-800 dark:text-white">Theme</div>
+                    <div className="row-span-4 grid grid-cols-6">
+
+                        <div onClick={() => toggleSoundSettings(true)} className={`${soundEnabled ? "bg-gray-500 dark:bg-gray-700" : "bg-gray-300 dark:bg-gray-600"} col-start-3 mt-2 mx-1 mb-2 cursor-pointer font-bold border-gray-300 col-span-1 flex justify-center items-center text-center text-zinc-800 dark:text-white`}>
+                          <IconContext.Provider value={{ color: `${darkMode ? "white" : "rgb(39 39 42)"}`, size: '18px' }}>
+                              <BsFillSunFill />
+                          </IconContext.Provider>
+                        </div>
+
+                        <div onClick={() => toggleSoundSettings(false)} className={`${soundEnabled ? "bg-gray-300 dark:bg-gray-600" : "bg-gray-500 dark:bg-gray-700"} mt-2 mx-1 mb-2 cursor-pointer font-bold border-gray-300 col-span-1 flex justify-center items-center text-center text-zinc-800 dark:text-white`}>
+                          <IconContext.Provider value={{ color: `${darkMode ? "white" : "rgb(39 39 42)"}`, size: '18px' }}>
+                              <BsFillMoonFill />
+                          </IconContext.Provider>
+                        </div>
+
+                    </div>
+                  </div>
+
                   <div className="row-span-2 grid grid-rows-4">
                     <div className="row-span-1 text-1xl flex justify-center items-center text-zinc-800 dark:text-white">Time (minutes)</div>
                     <div className="row-span-3 grid grid-cols-6">
