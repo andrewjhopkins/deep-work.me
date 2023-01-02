@@ -25,6 +25,13 @@ const LofiPlayerWidget = memo(() => {
     }
 
     const handleVolumeChange = (event) => {
+        if (event.target.value == 0) {
+            player.mute();
+        }
+        else if (player.isMuted()) {
+            player.unMute();
+        }
+
         setPlayerVolume(event.target.value);
         player.setVolume(playerVolume);
     }
