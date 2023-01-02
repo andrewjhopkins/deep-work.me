@@ -45,7 +45,7 @@ const TaskListWidget = memo(() => {
     const updateTask = () => {
         if (updateTaskIndex > -1) {
             state.taskItems[updateTaskIndex] = newTask;
-            dispatch({...state, taskItems: state.taskItems, type: actionType.update_task_list});
+            setTaskItems([...state.taskItems]);
             setUpdatingTask(false);
         }
     }
@@ -71,7 +71,7 @@ const TaskListWidget = memo(() => {
 
     const deleteTask = () => {
         state.taskItems.splice(updateTaskIndex, 1);
-        dispatch({...state, taskItems: state.taskItems, type: actionType.update_task_list});
+        setTaskItems([...state.taskItems]);
         setUpdateTaskIndex(-1);
         setUpdatingTask(false);
     }
@@ -91,20 +91,19 @@ const TaskListWidget = memo(() => {
     }
 
     const removeAllTasks = () => {
-        dispatch({...state, taskItems: [], type: actionType.update_task_list});
         setTaskItems([]);
     }
 
     const incrementPomodoroComplete = (index: number) => {
         if (state.taskItems[index].pomodoros_complete < state.taskItems[index].pomodoros) {
             state.taskItems[index] = {...state.taskItems[index], pomodoros_complete: state.taskItems[index].pomodoros_complete + 1};
-            dispatch({...state, taskItems: state.taskItems, type: actionType.update_task_list});
+            setTaskItems([...state.taskItems]);
         }
     }
 
     const redoTask = (index: number) => {
         state.taskItems[index] = {...state.taskItems[index], pomodoros_complete: 0};
-        dispatch({...state, taskItems: state.taskItems, type: actionType.update_task_list});
+        setTaskItems([...state.taskItems]);
     }
 
     const tasks = taskItems.map((task, index) => {
