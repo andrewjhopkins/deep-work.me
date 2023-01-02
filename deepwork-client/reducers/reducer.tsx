@@ -42,6 +42,11 @@ const reducer = (state, action) => {
             return {
                 ...state, timeLeft: timeSettingsDefault[state.timerMode].initialTime, timeSettings: structuredClone(timeSettingsDefault)
             }
+        case actionType.update_sound_setting:
+            localStorage.setItem("deep-work:settings:sound", JSON.stringify(action.soundEnabled));
+            return {
+                ...state, soundEnabled: action.soundEnabled
+            }
         case actionType.update_task_list:
             localStorage.setItem("deep-work:taskitems", JSON.stringify(action.taskItems));
             return {
@@ -51,11 +56,6 @@ const reducer = (state, action) => {
             localStorage.setItem("deep-work:settings:backgroundEffect", JSON.stringify(action.backgroundEffect));
             return {
                 ...state, backgroundEffect: action.backgroundEffect
-            }
-        case actionType.update_sound_setting:
-            localStorage.setItem("deep-work:settings:sound", JSON.stringify(action.soundEnabled));
-            return {
-                ...state, soundEnabled: action.soundEnabled
             }
         default:
             return state;
