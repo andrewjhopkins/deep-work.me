@@ -1,12 +1,11 @@
+import { Reorder } from "framer-motion";
 import { memo, useContext, useState, useEffect } from "react";
 import { IconContext } from "react-icons";
-import { IoMdCheckmark } from "react-icons/io";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
-import { FaRedoAlt } from "react-icons/fa";
 import { Context } from "../../context/Context";
 import { ITaskItem } from "../../context/Context";
 import { actionType } from "../../reducers/reducerActionTypes";
+import TaskListItem from "./TaskListItem";
 
 const TaskListWidget = memo(() => {
     const { state, dispatch } = useContext(Context);
@@ -15,18 +14,22 @@ const TaskListWidget = memo(() => {
     const [updateTaskIndex, setUpdateTaskIndex] = useState(-1);
     const [newTask, setNewTask] = useState<ITaskItem>({pomodoros: 1, pomodoros_complete: 0} as ITaskItem);
 
-    const { taskItems } = state
+    const [taskItems, setTaskItems] = useState([]);
 
     useEffect(() => {
         const taskItemsString = localStorage.getItem("deep-work:taskitems");
         if(taskItemsString) {
             let taskItems: ITaskItem[] = JSON.parse(taskItemsString);
-            dispatch({...state, taskItems: taskItems, type: actionType.update_task_list})
+            setTaskItems(taskItems);
         }
     }, [])
 
+    useEffect(() => {
+        dispatch({...state, taskItems: taskItems, type: actionType.update_task_list})
+    }, [taskItems])
+
     const createNewTask = () => {
-        dispatch({...state, taskItems: state.taskItems.concat(newTask), type: actionType.update_task_list});
+        setTaskItems(taskItems.concat(newTask));
         setCreatingTask(false);
     }
 
@@ -95,29 +98,16 @@ const TaskListWidget = memo(() => {
     }
 
     const tasks = taskItems.map((task, index) => {
-        const taskComplete = task.pomodoros_complete >= task.pomodoros && task.pomodoros > 0;
         return(
-            <div key={index} className={`border border-gray-800 h-10 grid grid-cols-12 ${taskComplete ? "bg-green-900 text-white" : "bg-gray-700 text-white"}`}>
-                <div onClick={() => {if (taskComplete) { redoTask(index) }}} className={`ml-2 flex items-center justify-center col-span-1 ${taskComplete && "cursor-pointer"}`}>
-                    {taskComplete ?
-                    <IconContext.Provider value={{ color: 'white', size: '20px' }}>
-                        <FaRedoAlt />
-                    </IconContext.Provider> : 
-                    <IconContext.Provider value={{ color: 'white', size: '20px' }}>
-                        <IoMdCheckmark />
-                    </IconContext.Provider>}
-                </div>
-
-                <div className={`flex items-center col-span-9 ${taskComplete && "line-through"}`}><span className="ml-2">{task.name}</span></div>
-                <div onClick={() => incrementPomodoroComplete(index)} className={`cursor-pointer col-span-1 flex items-center justify-center ${taskComplete && "line-through"}`}>
-                    {task.pomodoros > 0 && `${task.pomodoros_complete}/${task.pomodoros}`}
-                </div>
-                <div onClick={() => toggleUpdatingTaskIndex(index)} className="col-span-1 flex items-center justify-end cursor-pointer">
-                    <IconContext.Provider value={{ color: 'white', size: '20px' }}>
-                        <BsThreeDotsVertical />
-                    </IconContext.Provider>
-                </div>
-            </div>
+            <Reorder.Item key={task.name} value={task}>
+                <TaskListItem 
+                    task={task} 
+                    index={index} 
+                    redoTask={redoTask} 
+                    incrementPomodoroComplete={incrementPomodoroComplete} 
+                    toggleUpdatingTaskIndex={toggleUpdatingTaskIndex}
+                />
+            </Reorder.Item>
         );
     })
 
@@ -183,7 +173,9 @@ const TaskListWidget = memo(() => {
                 : 
                 <div style={{height: "85%"}} className="grid grid-rows-6 p-2">
                     <div className="mt-2 row-span-5">
-                        {tasks}
+                        <Reorder.Group values={taskItems} onReorder={setTaskItems}>
+                            {tasks}
+                        </Reorder.Group>
                     </div>
                     <div className="grid grid-cols-12">
                         <div onClick={removeAllTasks} className="cursor-pointer flex justify-center items-center col-start-9 col-span-4 bg-red-900 hover:bg-red-800 text-white font-bold rounded h-3/4">Remove All</div>
