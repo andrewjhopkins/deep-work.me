@@ -1,3 +1,4 @@
+import { Reorder } from "framer-motion";
 import { memo, useContext, useState, useEffect } from "react";
 import { IconContext } from "react-icons";
 import { AiFillDelete } from "react-icons/ai";
@@ -13,18 +14,22 @@ const TaskListWidget = memo(() => {
     const [updateTaskIndex, setUpdateTaskIndex] = useState(-1);
     const [newTask, setNewTask] = useState<ITaskItem>({pomodoros: 1, pomodoros_complete: 0} as ITaskItem);
 
-    const { taskItems } = state
+    const [taskItems, setTaskItems] = useState([]);
 
     useEffect(() => {
         const taskItemsString = localStorage.getItem("deep-work:taskitems");
         if(taskItemsString) {
             let taskItems: ITaskItem[] = JSON.parse(taskItemsString);
-            dispatch({...state, taskItems: taskItems, type: actionType.update_task_list})
+            setTaskItems(taskItems);
         }
     }, [])
 
+    useEffect(() => {
+        dispatch({...state, taskItems: taskItems, type: actionType.update_task_list})
+    }, [taskItems])
+
     const createNewTask = () => {
-        dispatch({...state, taskItems: state.taskItems.concat(newTask), type: actionType.update_task_list});
+        setTaskItems(taskItems.concat(newTask));
         setCreatingTask(false);
     }
 
@@ -94,14 +99,15 @@ const TaskListWidget = memo(() => {
 
     const tasks = taskItems.map((task, index) => {
         return(
-            <TaskListItem 
-                key={index}
-                task={task} 
-                index={index} 
-                redoTask={redoTask} 
-                incrementPomodoroComplete={incrementPomodoroComplete} 
-                toggleUpdatingTaskIndex={toggleUpdatingTaskIndex}
-            />
+            <Reorder.Item key={task.name} value={task}>
+                <TaskListItem 
+                    task={task} 
+                    index={index} 
+                    redoTask={redoTask} 
+                    incrementPomodoroComplete={incrementPomodoroComplete} 
+                    toggleUpdatingTaskIndex={toggleUpdatingTaskIndex}
+                />
+            </Reorder.Item>
         );
     })
 
@@ -167,7 +173,9 @@ const TaskListWidget = memo(() => {
                 : 
                 <div style={{height: "85%"}} className="grid grid-rows-6 p-2">
                     <div className="mt-2 row-span-5">
-                        {tasks}
+                        <Reorder.Group values={taskItems} onReorder={setTaskItems}>
+                            {tasks}
+                        </Reorder.Group>
                     </div>
                     <div className="grid grid-cols-12">
                         <div onClick={removeAllTasks} className="cursor-pointer flex justify-center items-center col-start-9 col-span-4 bg-red-900 hover:bg-red-800 text-white font-bold rounded h-3/4">Remove All</div>
