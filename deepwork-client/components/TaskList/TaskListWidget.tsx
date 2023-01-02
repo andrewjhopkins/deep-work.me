@@ -6,6 +6,7 @@ import { Context } from "../../context/Context";
 import { ITaskItem } from "../../context/Context";
 import { actionType } from "../../reducers/reducerActionTypes";
 import TaskListItem from "./TaskListItem";
+import { v4 as uuid } from "uuid";
 
 const TaskListWidget = memo(() => {
     const { state, dispatch } = useContext(Context);
@@ -20,6 +21,11 @@ const TaskListWidget = memo(() => {
         const taskItemsString = localStorage.getItem("deep-work:taskitems");
         if(taskItemsString) {
             let taskItems: ITaskItem[] = JSON.parse(taskItemsString);
+            taskItems.forEach((item) => {
+                if (!item.id) {
+                    item.id = uuid();
+                }
+            })
             setTaskItems(taskItems);
         }
     }, [])
@@ -29,6 +35,9 @@ const TaskListWidget = memo(() => {
     }, [taskItems])
 
     const createNewTask = () => {
+        if (!newTask.id) {
+            newTask.id = uuid();
+        }
         setTaskItems(taskItems.concat(newTask));
         setCreatingTask(false);
     }
@@ -83,6 +92,7 @@ const TaskListWidget = memo(() => {
 
     const removeAllTasks = () => {
         dispatch({...state, taskItems: [], type: actionType.update_task_list});
+        setTaskItems([]);
     }
 
     const incrementPomodoroComplete = (index: number) => {
@@ -99,7 +109,7 @@ const TaskListWidget = memo(() => {
 
     const tasks = taskItems.map((task, index) => {
         return(
-            <Reorder.Item key={task.name} value={task}>
+            <Reorder.Item key={task.id} value={task}>
                 <TaskListItem 
                     task={task} 
                     index={index} 

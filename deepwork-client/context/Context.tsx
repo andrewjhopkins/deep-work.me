@@ -13,6 +13,7 @@ export enum TimeMode {
 }
 
 export interface ITaskItem {
+    id: string,
     name: string,
     pomodoros: number,
     pomodoros_complete: number,
@@ -55,12 +56,14 @@ const timeSettingsClone = structuredClone(timeSettingsDefault);
 
 const sampleTasks: ITaskItem[] = [
     {
+        "id": "8f9b5f6c-6d58-4529-8db9-d6a1964db227",
         "name": "task to do 1",
         "pomodoros": 2,
         "pomodoros_complete": 0,
         "finished": false
     },
     {
+        "id": "8f9b5f6c-6d58-4529-8db9-d6a1964db227",
         "name": "task to do 2",
         "pomodoros": 3,
         "pomodoros_complete": 1,
