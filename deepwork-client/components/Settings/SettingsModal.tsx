@@ -4,9 +4,11 @@ import { formatSecondsIntoMinutesAndSeconds } from '../../utils/date';
 import { actionType } from '../../reducers/reducerActionTypes';
 import { IconContext } from "react-icons";
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
+import { useTheme } from 'next-themes';
 
 const SettingsModal = () =>  {
     let darkMode: boolean;
+    const { theme, setTheme } = useTheme();
 
     useEffect(() => {
       darkMode = document.documentElement.classList.contains("dark") ? true : false;
@@ -68,7 +70,7 @@ const SettingsModal = () =>  {
           <>
             <div style={{ zIndex: 999}} className="fixed inset-0 mx-auto my-32 h-fit w-96 border-2 z-10 border-2 rounded-lg bg-gray-400 dark:border-gray-900 dark:bg-gray-800">
 
-                <div className="h-10 text-center text-1xl border-b text-zinc-800 dark:text-white">
+                <div className="h-10 text-center text-1xl text-zinc-800 dark:text-white">
                   <div className="my-2">Settings</div>
                 </div>
 
@@ -77,14 +79,14 @@ const SettingsModal = () =>  {
                     <div className="row-span-2 text-1xl flex justify-center items-center text-zinc-800 dark:text-white">Theme</div>
                     <div className="row-span-4 grid grid-cols-6">
 
-                        <div onClick={() => toggleSoundSettings(true)} className={`${soundEnabled ? "bg-gray-500 dark:bg-gray-700" : "bg-gray-300 dark:bg-gray-600"} col-start-3 mt-2 mx-1 mb-2 cursor-pointer font-bold border-gray-300 col-span-1 flex justify-center items-center text-center text-zinc-800 dark:text-white`}>
-                          <IconContext.Provider value={{ color: `${darkMode ? "white" : "rgb(39 39 42)"}`, size: '18px' }}>
+                        <div onClick={() => setTheme("light")} className={`${theme == "light" ? "bg-gray-500 dark:bg-gray-700" : "bg-gray-300 dark:bg-gray-600"} col-start-3 mt-2 mx-1 mb-2 cursor-pointer font-bold border-gray-300 col-span-1 flex justify-center items-center text-center text-zinc-800 dark:text-white`}>
+                          <IconContext.Provider value={{ color: `${theme == "dark" ? "white" : "rgb(39 39 42)"}`, size: '18px' }}>
                               <BsFillSunFill />
                           </IconContext.Provider>
                         </div>
 
-                        <div onClick={() => toggleSoundSettings(false)} className={`${soundEnabled ? "bg-gray-300 dark:bg-gray-600" : "bg-gray-500 dark:bg-gray-700"} mt-2 mx-1 mb-2 cursor-pointer font-bold border-gray-300 col-span-1 flex justify-center items-center text-center text-zinc-800 dark:text-white`}>
-                          <IconContext.Provider value={{ color: `${darkMode ? "white" : "rgb(39 39 42)"}`, size: '18px' }}>
+                        <div onClick={() => setTheme("dark")} className={`${theme == "light" ? "bg-gray-300 dark:bg-gray-600" : "bg-gray-500 dark:bg-gray-700"} mt-2 mx-1 mb-2 cursor-pointer font-bold border-gray-300 col-span-1 flex justify-center items-center text-center text-zinc-800 dark:text-white`}>
+                          <IconContext.Provider value={{ color: `${theme == "dark" ? "white" : "rgb(39 39 42)"}`, size: '18px' }}>
                               <BsFillMoonFill />
                           </IconContext.Provider>
                         </div>
