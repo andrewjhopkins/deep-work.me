@@ -64,19 +64,19 @@ const TaskTimer = memo((props: ITaskTimerProps) => {
     return (
         <div className="h-full grid grid-row-6">
             <title>{timerRunning ? timerString : "deep-work.me"}</title>
-            <div className="my-5 text-8xl timer-label row-span-5 text-white">
+            <div className="my-5 text-8xl timer-label row-span-5 text-zinc-800 dark:text-white">
                 {timerString}
             </div>
 
             <div className="grid grid-cols-2 row-span-1">
                 <div className="col-span-1">
-                    <div className={`${seconds == 0 ? "pointer-events-none opacity-60" : ""} my-2 text-center w-7/12 m-auto ${timerRunning ? "bg-indigo-900 hover:bg-indigo-800" : "bg-blue-900 hover:bg-blue-800"} text-white font-bold rounded py-1 cursor-pointer`}
+                    <div className={`${seconds == 0 ? "pointer-events-none opacity-60" : ""} my-2 text-center w-7/12 m-auto ${timerRunning ? "bg-indigo-600 dark:bg-indigo-900 hover:bg-indigo-800" : "bg-blue-600 dark:bg-blue-900 hover:bg-blue-800"} text-zinc-800 dark:text-white font-bold rounded py-1 cursor-pointer`}
                         onClick={startButtonClickHandler}>
                         <h1>{timerRunning ? "Stop" : "Start"}</h1>
                     </div>
                 </div>
                 <div className="col-span-1">
-                    <div className={`${timerRunning ? "pointer-events-none opacity-60" : ""} my-2 text-center w-7/12 m-auto bg-red-900 hover:bg-red-800 text-white font-bold rounded py-1 cursor-pointer`}
+                    <div className={`${timerRunning ? "pointer-events-none opacity-60" : ""} my-2 text-center w-7/12 m-auto bg-red-600 dark:bg-red-900 hover:bg-red-800 text-zinc-800 dark:text-white font-bold rounded py-1 cursor-pointer`}
                         onClick={resetButtonClickHandler}>
                         <h1>Reset</h1>
                     </div>

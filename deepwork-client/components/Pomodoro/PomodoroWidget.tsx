@@ -22,7 +22,7 @@ const PomodoroWidget = memo(() => {
     const modeButtons = Object.entries(state.timeSettings).map(([key, value]) => {
         return (
             <div key={key} className="col-span-1 text-center cursor-pointer">
-                <div id={key} className={`text-white mx-auto my-3 w-10/12 h-5/8 text-center hover:bg-gray-600 text-white font-bold rounded py-1 ${key == timerMode ? "bg-gray-900" : ""}`}
+                <div id={key} className={`mx-auto my-3 w-10/12 h-5/8 text-center hover:bg-gray-600 font-bold rounded py-1 text-zinc-800 dark:text-white ${key == timerMode ? "bg-gray-500 dark:bg-gray-900" : ""}`}
                     onClick={() => handleModeChange(key)}
                 >
                     <h1>{value.name}</h1>
@@ -32,7 +32,7 @@ const PomodoroWidget = memo(() => {
     });
 
     return (
-        <div className="border-2 border-gray-900 bg-gray-800 bg-opacity-90 rounded-lg">
+        <div className="border-2 bg-opacity-90 rounded-lg bg-gray-400 dark:border-gray-900 dark:bg-gray-800">
             <div className="cursor-move handle h-2"></div>
             <div className="h-72 w-96 grid grid-rows-5 ">
                 <div className="row-span-1 grid grid-cols-3">

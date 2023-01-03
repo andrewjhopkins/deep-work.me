@@ -30,7 +30,7 @@ const Toast = () => {
     });
 
     return (
-        <div className={`${toastShow ? "" : "hidden-fade-out"} fixed right-10 bottom-10 px-5 py-4 border-r-8 ${ display[toastColor] } bg-gray-800 drop-shadow-lg text-white opacity-90`}>
+        <div className={`${toastShow ? "" : "hidden-fade-out"} fixed right-10 bottom-10 px-5 py-4 border-r-8 ${ display[toastColor] } text-zinc-800 bg-gray-400 drop-shadow-lg dark:text-white dark:bg-gray-800 opacity-90`}>
             <style>{css}</style>
             <h1>{toastMessage}</h1>
         </div>
