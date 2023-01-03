@@ -1,6 +1,5 @@
 import { memo, useState, useEffect } from "react";
 import { BsPlayCircleFill, BsPauseCircleFill, BsYoutube } from "react-icons/bs";
-import { IconContext } from "react-icons";
 import YouTube from "react-youtube";
 import { useTheme } from "next-themes";
 
@@ -50,7 +49,7 @@ const LofiPlayerWidget = memo(() => {
           autoplay: 0,
         },
       };
-
+    
     return (
         <div className="h-20 w-96 grid grid-rows-6 border-2 rounded-lg bg-opacity-90 bg-gray-400 dark:border-gray-900 dark:bg-gray-800">
             <div className="handle row-span-1 cursor-move"></div>
@@ -59,17 +58,13 @@ const LofiPlayerWidget = memo(() => {
                     <span>{playerTitle}</span>
                 </div>
                 <div className="col-span-1 flex justify-center">
-                    <IconContext.Provider value={{ color: `${theme == "dark" ? "white" : "rgb(39 39 42)"}`, size: '20px' }}>
-                        <a onClick={togglePlay} href="https://www.youtube.com/watch?v=jfKfPfyJRdk" target="_blank" rel="noreferrer"><BsYoutube /></a>
-                    </IconContext.Provider>
+                    <a onClick={togglePlay} href="https://www.youtube.com/watch?v=jfKfPfyJRdk" target="_blank" rel="noreferrer"><BsYoutube /></a>
                 </div>
            </div>
 
             <div className="row-span-3 grid grid-cols-12">
                 <div className="ml-3 col-span-1 flex items-center cursor-pointer">
-                    <IconContext.Provider value={{ color: `${theme == "dark" ? "white" : "rgb(39 39 42)"}`, size: '20px' }}>
-                        {playing ? <BsPauseCircleFill onClick={togglePlay}/> : <BsPlayCircleFill onClick={togglePlay}/>}
-                    </IconContext.Provider>
+                    {playing ? <BsPauseCircleFill onClick={togglePlay}/> : <BsPlayCircleFill onClick={togglePlay}/>}
                 </div>
                 <div className="ml-3 mr-3 col-span-11 flex items-center">
                     <input onChange={handleVolumeChange} id="default-range" type="range" value={playerVolume} className="w-full h-1 rounded-lg appearance-none cursor-pointer bg-zinc-800 dark:bg-gray-700"></input>
