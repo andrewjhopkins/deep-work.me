@@ -1,7 +1,8 @@
-import { memo, useState } from "react";
+import { memo, useState, useEffect } from "react";
 import { BsPlayCircleFill, BsPauseCircleFill, BsYoutube } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import YouTube from "react-youtube";
+import { useTheme } from "next-themes";
 
 const LofiPlayerWidget = memo(() => {
     const [player, setPlayer] = useState(null);
@@ -9,11 +10,9 @@ const LofiPlayerWidget = memo(() => {
 
     const [playerVolume, setPlayerVolume] = useState(50);
     const [playerTitle, setPlayerTitle] = useState("");
-
-    let darkMode: boolean;
-
+    const { theme } = useTheme();
+    
     const onReady = (event) => {
-        darkMode = document.documentElement.classList.contains("dark") ? true : false;
         setPlayer(event.target);
         event.target.pauseVideo();
         event.target.setVolume(playerVolume);
@@ -60,7 +59,7 @@ const LofiPlayerWidget = memo(() => {
                     <span>{playerTitle}</span>
                 </div>
                 <div className="col-span-1 flex justify-center">
-                    <IconContext.Provider value={{ color: `${darkMode ? "white" : "rgb(39 39 42)"}`, size: '20px' }}>
+                    <IconContext.Provider value={{ color: `${theme == "dark" ? "white" : "rgb(39 39 42)"}`, size: '20px' }}>
                         <a onClick={togglePlay} href="https://www.youtube.com/watch?v=jfKfPfyJRdk" target="_blank" rel="noreferrer"><BsYoutube /></a>
                     </IconContext.Provider>
                 </div>
@@ -68,7 +67,7 @@ const LofiPlayerWidget = memo(() => {
 
             <div className="row-span-3 grid grid-cols-12">
                 <div className="ml-3 col-span-1 flex items-center cursor-pointer">
-                    <IconContext.Provider value={{ color: `${darkMode ? "white" : "rgb(39 39 42)"}`, size: '20px' }}>
+                    <IconContext.Provider value={{ color: `${theme == "dark" ? "white" : "rgb(39 39 42)"}`, size: '20px' }}>
                         {playing ? <BsPauseCircleFill onClick={togglePlay}/> : <BsPlayCircleFill onClick={togglePlay}/>}
                     </IconContext.Provider>
                 </div>

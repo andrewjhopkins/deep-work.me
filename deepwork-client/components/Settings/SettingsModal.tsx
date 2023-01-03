@@ -7,13 +7,7 @@ import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 import { useTheme } from 'next-themes';
 
 const SettingsModal = () =>  {
-    let darkMode: boolean;
     const { theme, setTheme } = useTheme();
-
-    useEffect(() => {
-      darkMode = document.documentElement.classList.contains("dark") ? true : false;
-    });
-
     const { state, dispatch } = useContext(Context);
     const { showSettings, timeSettings, backgroundEffect, soundEnabled } = state;
 

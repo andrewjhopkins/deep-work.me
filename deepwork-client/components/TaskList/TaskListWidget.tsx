@@ -7,6 +7,7 @@ import { ITaskItem } from "../../context/Context";
 import { actionType } from "../../reducers/reducerActionTypes";
 import TaskListItem from "./TaskListItem";
 import { v4 as uuid } from "uuid";
+import { useTheme } from "next-themes";
 
 const TaskListWidget = memo(() => {
     const { state, dispatch } = useContext(Context);
@@ -15,10 +16,9 @@ const TaskListWidget = memo(() => {
     const [updateTaskIndex, setUpdateTaskIndex] = useState(-1);
     const [newTask, setNewTask] = useState<ITaskItem>({pomodoros: 1, pomodoros_complete: 0} as ITaskItem);
     const [taskItems, setTaskItems] = useState([]);
-    let darkMode;
+    const { theme } = useTheme();
 
     useEffect(() => {
-        darkMode = document.documentElement.classList.contains("dark") ? true : false;
         const taskItemsString = localStorage.getItem("deep-work:taskitems");
         if(taskItemsString) {
             let taskItems: ITaskItem[] = JSON.parse(taskItemsString);
@@ -151,7 +151,7 @@ const TaskListWidget = memo(() => {
 
                             {!creatingTask && 
                                 <div onClick={deleteTask} className="cursor-pointer flex items-center justify-center col-start-8 col-span-1">
-                                    <IconContext.Provider value={{ color: `${darkMode ? "white" : "rgb(39 39 42)"}`, size: '20px' }}>
+                                    <IconContext.Provider value={{ color: `${theme == "dark" ? "white" : "rgb(39 39 42)"}`, size: '20px' }}>
                                         <AiFillDelete />
                                     </IconContext.Provider>
                                 </div>
