@@ -57,7 +57,7 @@ const LofiPlayerWidget = memo(() => {
                 <div className="ml-3 col-span-6 text-sm text-zinc-800 dark:text-white">
                     <span>{playerTitle}</span>
                 </div>
-                <div className="col-span-1 flex justify-center">
+                <div className="col-span-1 flex items-center justify-center">
                     <a onClick={togglePlay} href="https://www.youtube.com/watch?v=jfKfPfyJRdk" target="_blank" rel="noreferrer"><BsYoutube /></a>
                 </div>
            </div>
