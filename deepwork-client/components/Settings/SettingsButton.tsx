@@ -13,7 +13,7 @@ const SettingsButton = () => {
 
     return(
         <div className="fixed right-10 top-10 cursor-pointer">
-            <IconContext.Provider value={{ color: 'white', size: '30px' }}>
+            <IconContext.Provider value={{ size: '30px' }}>
                 <IoMdSettings onClick={toggleShowSettings} />
             </IconContext.Provider>
         </div>

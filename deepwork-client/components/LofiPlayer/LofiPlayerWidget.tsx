@@ -1,7 +1,6 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useState } from "react";
 import { BsPlayCircleFill, BsPauseCircleFill, BsYoutube } from "react-icons/bs";
 import YouTube from "react-youtube";
-import { useTheme } from "next-themes";
 
 const LofiPlayerWidget = memo(() => {
     const [player, setPlayer] = useState(null);
@@ -9,7 +8,6 @@ const LofiPlayerWidget = memo(() => {
 
     const [playerVolume, setPlayerVolume] = useState(50);
     const [playerTitle, setPlayerTitle] = useState("");
-    const { theme } = useTheme();
     
     const onReady = (event) => {
         setPlayer(event.target);

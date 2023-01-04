@@ -74,13 +74,13 @@ const SettingsModal = () =>  {
                     <div className="row-span-4 grid grid-cols-6">
 
                         <div onClick={() => setTheme("light")} className={`${theme == "light" ? "bg-gray-500 dark:bg-gray-700" : "bg-gray-300 dark:bg-gray-600"} col-start-3 mt-2 mx-1 mb-2 cursor-pointer font-bold border-gray-300 col-span-1 flex justify-center items-center text-center text-zinc-800 dark:text-white`}>
-                          <IconContext.Provider value={{ color: `${theme == "dark" ? "white" : "rgb(39 39 42)"}`, size: '18px' }}>
+                          <IconContext.Provider value={{ size: '18px' }}>
                               <BsFillSunFill />
                           </IconContext.Provider>
                         </div>
 
                         <div onClick={() => setTheme("dark")} className={`${theme == "light" ? "bg-gray-300 dark:bg-gray-600" : "bg-gray-500 dark:bg-gray-700"} mt-2 mx-1 mb-2 cursor-pointer font-bold border-gray-300 col-span-1 flex justify-center items-center text-center text-zinc-800 dark:text-white`}>
-                          <IconContext.Provider value={{ color: `${theme == "dark" ? "white" : "rgb(39 39 42)"}`, size: '18px' }}>
+                          <IconContext.Provider value={{ size: '18px' }}>
                               <BsFillMoonFill />
                           </IconContext.Provider>
                         </div>
