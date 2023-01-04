@@ -9,13 +9,22 @@ import { BrowserView, MobileView } from "react-device-detect";
 import TaskListWidget from '../components/TaskList/TaskListWidget';
 import Canvas from '../components/Canvas/Canvas';
 import { useTheme } from "next-themes";
+import { useState, useEffect } from 'react';
 
 import bg from "/public/background_2.jpg";
 import bg2 from "/public/background_5.jpg";
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
 
-  const { theme } = useTheme();
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
 
   return (
     <div>
